@@ -6,7 +6,7 @@ This is the artifact for the Proof-of-Concept of the RUC attack, paper titled **
 
 The artifact includes the Dockerfiles of the tested DNS software and the victim domains’ nameserver, scripts for the three RUC attack variants, and detailed instructions to facilitate the vulnerability reproduction within a controlled environment.
 
-For more details, please refer to [our paper](https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan) at USENIX Security '25 and its [artifact appendix](Artifact_Appendix.pdf).
+For more details, please refer to [our paper](https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan) at USENIX Security '25 and its [artifact appendix](https://secartifacts.github.io/usenixsec2025/appendix-files/sec25cycle2ae-final10.pdf).
 
 ## Introduction
 The Domain Name System Security Extensions (DNSSEC), designed to ensure the authenticity and integrity of DNS data, has been deployed in over 90% of top-level zones. To mitigate service outages due to DNSSEC misconfigurations, DNS resolvers allow the public to troubleshoot resource records without enforcing DNSSEC validation. Unfortunately, given no clear specifications, many resolvers mix the caching and reusing of DNS data introduced via troubleshooting with those in routine operations. This opens a new attack surface that thwarts domain resolution. 
@@ -40,7 +40,6 @@ The scripts for testing RUC vulnerabilities are executed in Python environment, 
 ## File structure
 ```
 RUC_PoC
-├── Artifact_Appendix.pdf
 ├── dockers
 │   ├── dockerhub.md
 │   ├── nameserver.Dockerfile
