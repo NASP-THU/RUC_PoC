@@ -1,0 +1,6 @@
+Microsoft DNS-2022|-|ruc_dnskey|w/o SIG|True|100.0
+Microsoft DNS-2022|-|ruc_dnskey|w/ SIG|True|100.0
+Microsoft DNS-2022|-|ruc_ds|w/o SIG|True|100.0
+Microsoft DNS-2022|-|ruc_ds|w/ SIG|True|100.0
+Microsoft DNS-2022|-|ruc_nsip|-|True|100.0
+Microsoft DNS-2022|-|ruc_edns0|-|False|0.0

@@ -1,0 +1,30 @@
+BIND-9.20.3|172.22.1.1|ruc_dnskey|w/o SIG|True|100.0
+BIND-9.20.3|172.22.1.1|ruc_dnskey|w/ SIG|False|20.0
+PowerDNS-5.1.3|172.22.1.2|ruc_dnskey|w/o SIG|True|100.0
+PowerDNS-5.1.3|172.22.1.2|ruc_dnskey|w/ SIG|True|100.0
+Unbound-1.22.0|172.22.1.3|ruc_dnskey|w/o SIG|True|100.0
+Unbound-1.22.0|172.22.1.3|ruc_dnskey|w/ SIG|True|100.0
+Knot Resolver-5.7.4|172.22.1.4|ruc_dnskey|w/o SIG|False|0.0
+Knot Resolver-5.7.4|172.22.1.4|ruc_dnskey|w/ SIG|False|0.0
+Technitium-13.1|172.22.1.5|ruc_dnskey|w/o SIG|False|0.0
+Technitium-13.1|172.22.1.5|ruc_dnskey|w/ SIG|False|0.0
+BIND-9.20.3|172.22.1.1|ruc_ds|w/o SIG|True|100.0
+BIND-9.20.3|172.22.1.1|ruc_ds|w/ SIG|False|20.0
+PowerDNS-5.1.3|172.22.1.2|ruc_ds|w/o SIG|True|100.0
+PowerDNS-5.1.3|172.22.1.2|ruc_ds|w/ SIG|True|100.0
+Unbound-1.22.0|172.22.1.3|ruc_ds|w/o SIG|True|100.0
+Unbound-1.22.0|172.22.1.3|ruc_ds|w/ SIG|True|100.0
+Knot Resolver-5.7.4|172.22.1.4|ruc_ds|w/o SIG|False|0.0
+Knot Resolver-5.7.4|172.22.1.4|ruc_ds|w/ SIG|False|0.0
+Technitium-13.1|172.22.1.5|ruc_ds|w/o SIG|False|0.0
+Technitium-13.1|172.22.1.5|ruc_ds|w/ SIG|False|0.0
+BIND-9.20.3|172.22.1.1|ruc_nsip|-|True|100.0
+PowerDNS-5.1.3|172.22.1.2|ruc_nsip|-|True|100.0
+Unbound-1.22.0|172.22.1.3|ruc_nsip|-|True|100.0
+Knot Resolver-5.7.4|172.22.1.4|ruc_nsip|-|True|100.0
+Technitium-13.1|172.22.1.5|ruc_nsip|-|False|0.0
+BIND-9.20.3|172.22.1.1|ruc_edns0|-|True|100.0
+PowerDNS-5.1.3|172.22.1.2|ruc_edns0|-|False|0.0
+Unbound-1.22.0|172.22.1.3|ruc_edns0|-|False|0.0
+Knot Resolver-5.7.4|172.22.1.4|ruc_edns0|-|False|0.0
+Technitium-13.1|172.22.1.5|ruc_edns0|-|False|0.0

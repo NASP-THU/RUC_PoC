@@ -1,0 +1,33 @@
+{
+    "victim_apex": "dnssec-ruc.xyz",
+    "victim_subdomains": {
+        "ruc_dnskey": "victim-rucdnskey",
+        "ruc_ds": "sub.victim-rucds",
+        "ruc_ds_apex": "victim-rucds",
+        "ruc_nsip": "victim-rucnsip",
+        "ruc_nsip_nsdom": "rucnsip",
+        "ruc_edns0": "victim-rucedns0"
+    },
+    "victim_nameserver": {
+        "ip": "172.22.2.1",
+        "port": 57691,
+        "url": "dnssec-ruc",
+        "username": "sec25ae",
+        "password": "dnssec-ruc"
+    },
+    "troubleshooting_query": {
+        "cd": 1,
+        "ad": 0,
+        "opt": 1,
+        "do": 0
+    },
+    "inject": {
+        "interval": 1,
+        "round": 5
+    },
+    "verify": {
+        "interval": 1,
+        "round": 10
+    },
+    "result_folder": "ruc_test_result_raw"
+}

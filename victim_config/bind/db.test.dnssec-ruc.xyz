@@ -1,0 +1,16 @@
+$ORIGIN test.dnssec-ruc.xyz.
+$TTL    10
+@       SOA     ns.test.dnssec-ruc.xyz.      admin.dnssec-ruc.xyz. (
+                2025030601; serial
+                3600      ; refresh
+                1800      ; retry
+                1209600   ; expire after 2 weeks
+                600 )     ; minimum TTL of 600 secs
+;
+
+@       IN      NS      ns.test.dnssec-ruc.xyz.
+ns      IN      A       172.22.2.1
+@       IN      A       10.0.0.0
+
+@       IN      DNSKEY 257 3 8 AwEAAdEdkw5+KIgRkQejxM27jJ9fyKIOdoPBMTVYv8HD33xmgHzXYra7 Je7Y+v47DTp19utzA1V+2WF33P5pXH4OvG1ZHfuC8/STQcVqEuwV97fK EWQVl8TQkHPbSl/l5R8/XfZ0rhOAOF1+tZFo8XhN97yxMg67QM3xt1V5 eYCD21G5/q1Db4Us6xp55Bg0MEjWNFDkD4V57h5534L3BEwkvGIq1u8h lQHarJMfPxC1b95RpEqj3oUT1SLm/l2U3vdlNP74dwN24nwbju4tlkNe /RTQjtrwU0yr6xiWFSIfy7dGthpJy9CQ1WSGvsylQujxLSeNmCp2lA2W NS+HmEeUNuE=
+@       IN      DNSKEY 256 3 8 AwEAAYxLqw5LVw+el+5GpmIZfgucrBivtCEjfZUFJxEPpcr68CYNoxbs Ogz0sp/BrkAqv9kznGntW5WU42FZXklW65dI9m5ETz6UbE5SUjrs2aW5 j5Dnpcoh9C+Ibyj3YwDjHIRlsYaeSUl3YlrgzCl0bBmiV7474gTHPj3I rsEsNOAiXgqs5DHqlX4QS/6R12OypWP/2jGzdb1cVOOlHuKKNJ9mH1gI 6bArn0mjXVTtVhOGa+6ggXhB1wVDgGgUD21T4EAh7ry042xNqard8JQk n6u5ra+0llhFPrShw6jdWS3R61Hn8x1u7uFVuGTmOPgF57FNKqQPvwrJ Gcbq62CcQ/c=
