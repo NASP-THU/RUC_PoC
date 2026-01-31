@@ -1,6 +1,6 @@
 # Proof-of-Concept of the RUC Attack
 
-<p><a href="https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan"><img alt="RUC thumbnail" align="right" width="180" src="figures/RUC_USENIX.png"></a></p>
+<p><a href="https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan"><img alt="RUC thumbnail" align="center" width="200" src="figures/RUC_USENIX.png"></a></p>
 
 This is the artifact for the Proof-of-Concept of the RUC attack, paper titled **"Your Shield is My Sword: A Persistent Denial-of-Service Attack via the Reuse of Unvalidated Caches in DNSSEC Validation"**.
 
