@@ -1,10 +1,10 @@
 # Proof-of-Concept of the RUC Attack
 
-<p><a href="https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan"><img alt="RUC thumbnail" align="center" width="200" src="figures/RUC_USENIX.png"></a></p>
+<p><a href="https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan"><img alt="RUC thumbnail" align="right" width="200" src="figures/RUC_USENIX.png"></a></p>
 
 This is the artifact for the Proof-of-Concept of the RUC attack, paper titled **"Your Shield is My Sword: A Persistent Denial-of-Service Attack via the Reuse of Unvalidated Caches in DNSSEC Validation"**.
 
-The artifact includes the Dockerfiles of the tested DNS software and the victim domains’ nameserver, scripts for the three RUC attack variants, and detailed instructions to facilitate the vulnerability reproduction within a controlled environment.
+The artifact includes the Dockerfiles of the tested DNS software and the victim domains' nameserver, scripts for the three RUC attack variants, and detailed instructions to facilitate the vulnerability reproduction within a controlled environment.
 
 For more details, please refer to [our paper](https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan) at USENIX Security '25 and its [artifact appendix](https://secartifacts.github.io/usenixsec2025/appendix-files/sec25cycle2ae-final10.pdf).
 
