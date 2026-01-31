@@ -47,4 +47,5 @@ cache.size = 100 * MB\n\
 
 # start resolver service
 EXPOSE 53/tcp 53/udp
+WORKDIR /root
 CMD ["/usr/sbin/kresd", "-c", "/etc/knot-resolver/kresd.conf", "-v", "-n"]

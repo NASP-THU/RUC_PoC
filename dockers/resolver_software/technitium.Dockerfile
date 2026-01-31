@@ -12,4 +12,5 @@ RUN wget https://download.technitium.com/dns/archive/${TECHNITIUM_VERSION}/DnsSe
 
 # start resolver service
 EXPOSE 53/tcp 53/udp 5380
+WORKDIR /root
 ENTRYPOINT ["dotnet", "/app/DnsServerApp.dll"]

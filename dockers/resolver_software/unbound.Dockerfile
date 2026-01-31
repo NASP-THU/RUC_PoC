@@ -39,4 +39,5 @@ server:\n\
 RUN adduser --system --no-create-home --disabled-login unbound
 RUN unbound-checkconf /usr/local/etc/unbound/unbound.conf
 EXPOSE 53/tcp 53/udp
+WORKDIR /root
 CMD ["/usr/local/sbin/unbound", "-d"]

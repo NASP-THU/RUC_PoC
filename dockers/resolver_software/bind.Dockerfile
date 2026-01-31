@@ -27,4 +27,5 @@ RUN echo 'include "/usr/local/etc/rndc.key";\n\noptions {\n    directory "/var/c
 
 # start resolver service
 EXPOSE 53/tcp 53/udp
+WORKDIR /root
 CMD ["/usr/local/sbin/named", "-u", "root", "-g"]

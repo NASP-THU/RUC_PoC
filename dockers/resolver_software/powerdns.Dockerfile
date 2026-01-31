@@ -49,4 +49,5 @@ outgoing:\n\
     - 127.0.0.0/8" > /usr/local/etc/recursor.conf
 
 EXPOSE 53/tcp 53/udp
+WORKDIR /root
 CMD ["/usr/local/sbin/pdns_recursor", "--config-dir=/usr/local/etc"]
