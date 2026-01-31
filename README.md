@@ -8,9 +8,9 @@ The artifact includes the Dockerfiles of the tested DNS software and the victim 
 
 For more details, please refer to [our paper](https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan) at USENIX Security '25 and its [artifact appendix](https://secartifacts.github.io/usenixsec2025/appendix-files/sec25cycle2ae-final10.pdf).
 
-> NOTE: This branch is primarily for the **Artifact Evaluation of USENIX Security '25**. 
+> NOTE: This branch is primarily for the [Artifact Evaluation of USENIX Security '25](https://secartifacts.github.io/usenixsec2025/index). 
 > Please be advised that the hard-coded nameservers are no longer maintained since 2026. 
-> For the latest updates to reproduce the RUC attack, please refer to the **main branch** of this repository.
+> For the latest updates to reproduce the RUC attack, please refer to the [main branch](https://github.com/NASP-THU/RUC_PoC/tree/main) of this repository.
 
 ## Introduction
 The Domain Name System Security Extensions (DNSSEC), designed to ensure the authenticity and integrity of DNS data, has been deployed in over 90% of top-level zones. To mitigate service outages due to DNSSEC misconfigurations, DNS resolvers allow the public to troubleshoot resource records without enforcing DNSSEC validation. Unfortunately, given no clear specifications, many resolvers mix the caching and reusing of DNS data introduced via troubleshooting with those in routine operations. This opens a new attack surface that thwarts domain resolution. 
