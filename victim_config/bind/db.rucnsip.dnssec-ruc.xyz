@@ -1,0 +1,17 @@
+$ORIGIN rucnsip.dnssec-ruc.xyz.
+$TTL    10
+@       SOA     ns.rucnsip.dnssec-ruc.xyz.      admin.dnssec-ruc.xyz. (
+                2025030601; serial
+                3600      ; refresh
+                1800      ; retry
+                1209600   ; expire after 2 weeks
+                600 )     ; minimum TTL of 600 secs
+;
+
+@       IN      NS      ns1.rucnsip.dnssec-ruc.xyz.
+ns1     IN      A       172.22.2.1
+
+ns      IN      A       172.22.2.1
+
+@       IN      DNSKEY 257 3 8 AwEAAfzXP0O9ciGg60DSo5yATWZOOBqKyquJT7WacM40xUnJyyozEsv6 7eud0QtM50Ha06DuN5YB1zWdql6mBPorhbFz72/wTwdd4tFDlWNGNiAb HXPzQ+AhkW3qE1+v0zPRvDIQr29JghrOBj7tNW5gHyylTwfm9UwjctOL Cks0OEiNRmUaY+fWqI6Z2Fh9mScI/2fV/xH3fc6ZRPLrsDs4E7n4Yz8H L+A06WgXv/k18GisTG+1RgxJn6+zoxE3Zq4/jNjsz5uG5019ceuV0/4Q 8wU3f7NUm4Nw45abuoWcYuBULl2RR2cDjPhCjwOGqL8SSx/nyEWJ50di 9BSbW5+frZM=
+@       IN      DNSKEY 256 3 8 AwEAAeeFG09B+ec0AabYpxnBOpQh1QZTWXQ2LcRFv7bQNQTD1qz3Buin waiKNGkKf7q7Tj8m6L4i25z5AmX5CeZ+QPfVTZdx/GmIpYgN62q8Bgqn hvKsY+VyyzcOODLmlMhZzDqZRtSyGyk3gkQ+0P05zggQwxWjKYOZlm3y EqYBJ87TbD1iqn43zrRKE7c9PO4C6/1R1m1LBcbQWLq62GWO5Y4SZLYj c6KCODl5rhIqpPHthAyjYd8zItlJkNIfgbe5cRYzwfIdC0QDeUouWVLU Pa6yO/WZXTVa0pd2qjvrDFphqgAmp7xwlktke+OV73sw+vSHIm5v6pXd CghsszeWJCs=

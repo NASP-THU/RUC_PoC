@@ -1,0 +1,45 @@
+$ORIGIN     dnssec-ruc.xyz.
+$TTL        3600
+
+@           SOA     ns.dnssec-ruc.xyz.      admin.dnssec-ruc.xyz. (
+                    2025052901; serial
+                    3600      ; refresh
+                    1800      ; retry
+                    1209600   ; expire after 2 weeks
+                    600 )     ; minimum TTL of 600 secs
+;
+
+; apex NS delegation
+@           IN  NS      ns.dnssec-ruc.xyz.
+ns          IN  A       47.251.106.156
+
+; domain for the basic test
+test                IN  NS      ns.test.dnssec-ruc.xyz.
+test                IN  DS      21389 8 2 8C0EF23E52E1356C6B940795E47654CA3DE7E720C93B516206FFF829 9F6298D0
+ns.test             IN  A       172.22.2.1
+
+; domains for RUC_DNSKEY
+victim-rucdnskey    IN  NS      ns.rucdnskey.dnssec-ruc.xyz.
+victim-rucdnskey    IN  DS      35831 8 2 CBAB7986289AEFD9B7B0AC343FDDE6B63B90AC3B5459FE929380DB19 43C8C8F3
+ns.rucdnskey        IN  A       172.22.2.1
+
+; domains for RUC_DS
+victim-rucds        IN  NS      ns.rucds.dnssec-ruc.xyz.
+victim-rucds        IN  DS      33646 8 2 0EEF3EDF74FF2E57C4258936E9A74FC8EF6D66A069E4CB0BBD3F2139 E9973962
+ns.rucds            IN  A       172.22.2.1
+
+; domains for RUC_NSIP
+victim-rucnsip      IN  NS      ns.rucnsip.dnssec-ruc.xyz.
+victim-rucnsip      IN  DS      1999 8 2 4002BAF746F5157B94F8713A0C0DFFB84E5BA3261C4D9DF0B1024B82 9FEFB32D
+rucnsip             IN  NS      ns1.rucnsip.dnssec-ruc.xyz.
+rucnsip             IN  DS      6401 8 2 39926CF8E7724E2B6253082E8AB116CE487C80D462560A8DF1BA6141 7FFDE726
+ns1.rucnsip         IN  A       172.22.2.1
+
+; domains for RUC_EDNS0
+victim-rucedns0     IN  NS      ns.rucedns0.dnssec-ruc.xyz.
+victim-rucedns0     IN  DS      12392 8 2 CFE3B48979EF20E60F1A02874657C5C862E574B0D65EE3FBD581671F 9C689EBA
+ns.rucedns0         IN  A       172.22.2.1
+
+; apex KSK and ZSK
+@           IN  DNSKEY 257 3 8 AwEAAdNaLuCWDgKr/DnMpg6nNG1NbIxxY1ALD26B6qqE+eUABlP+xFjk H1nsixHU1smeWBappMosUtqNJbCurC3siHPzjhTIToUqZpzP8J9zf2+s psRAvpSHDszQ5/X52wtmevj3na4YofRmkS/CfoKt4C9LBabRIEPOuuqP TLXcjL2RnRsapdXfcCzYvlafJOKG/I87QT5fhzSUzxi8uBGp+F7HE7Kl HcB6/elZgP4f9m8nnst6cpa8jqEGx0c70CdFWATdkYOukvSd5ope6Eaq v09PqgLf7666RUFgvsOHUa20mDr233j2gpY1F6Gx9w6MGWFIWl9HQlB5 nBK2+NQPh+s=
+@           IN  DNSKEY 256 3 8 AwEAAd3fdB0Sz67OWXIZiH96l+Ui6NwI/LqYkOxD43XshmrxUgCKabPb aGMNlQEuPKcE/wQZJSluXgM3wBlmcCICcRkQg3ZbMwVvroafV/5/HSgc 3Sp5VKZhU4nNmM/illFTWvzizcht8PsTCkrIQOHC7i3dkto5ktYCy7Y1 Y1jQ7vYzWbZ+qMu6CLLYAedC3wrUGiH2HfI4aUKbEqVQZRNnomFKvZs3 sqF75ET7abtz3eSu7BYegJ37tLOpYEhYyvvvQALC4W+YY9Sce317qmy7 u9lO4cSAa7wLwRlWAkWWJPQlcROSWCEBnPIPkaDYBujjtm+Dh0Nlur3q IQP36UF90D8=
