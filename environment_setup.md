@@ -52,7 +52,7 @@ All the Linux-based resolvers are evaluated within the Docker network `ruc-test-
 | RUC attacker               | -             | -       | attacker:ruc        | ruc-attacker   | 172.22.3.1       |
 
 The Microsoft DNS resolver is evaluated within the local VM network (e.g., `VMnet8`).
-| Service Type               | Vendor        | Version | Local IP Address      |
+| Component                  | Vendor        | Version | Local IP Address      |
 |----------------------------|---------------|---------|-----------------------|
 | Resolver software          | Microsoft     | 2022    | 127.0.0.1<sup>*</sup> |
 | Victim domain's nameserver | BIND          | latest  | 192.168.45.70         |

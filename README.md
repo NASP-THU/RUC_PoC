@@ -8,10 +8,10 @@ The artifact includes the Dockerfiles of the tested DNS software and the victim 
 
 For more details, please refer to [our paper](https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan) at USENIX Security '25 and its [artifact appendix](https://secartifacts.github.io/usenixsec2025/appendix-files/sec25cycle2ae-final10.pdf).
 
-## 🌟 Latest updates
+## 🌟 Recent updates
 Please refer to the [main branch](https://github.com/NASP-THU/RUC_PoC) for the updated version of this artifact.
-- The authoritative nameservers of the apex domains for RUC tests (`dnssec-ruc.xyz` and `dnssec-ruc-ms.xyz`) have been shifted to Cloudflare. The NS and DNSKEY records in the [apex zonefile](victim_config/apex_zone.txt) have been updated correspondingly. The scripts and workflow to reproduce RUC on Linux-based resolvers remain unchanged.
-- For Microsoft DNS resolver, RUC now can be reproduced within the local virtual machine network. Please refer to [victim_config_ms](victim_config_ms/) for the detailed setup.
+- **[2026-03-05]**: The authoritative nameservers of the apex domains for RUC tests (`dnssec-ruc.xyz` and `dnssec-ruc-ms.xyz`) have been shifted to Cloudflare. The NS and DNSKEY records in the [apex zonefile](victim_config/apex_zone.txt) have been updated correspondingly. The scripts and workflow to reproduce RUC on Linux-based resolvers remain unchanged.
+- **[2026-03-05]**: For Microsoft DNS resolver, RUC now can be reproduced within the local virtual machine network. Please refer to the [instructions](https://github.com/NASP-THU/RUC_PoC/blob/main/environment_setup.md#microsoft-dns-resolver) for details.
 
 ## Introduction
 The Domain Name System Security Extensions (DNSSEC), designed to ensure the authenticity and integrity of DNS data, has been deployed in over 90% of top-level zones. To mitigate service outages due to DNSSEC misconfigurations, DNS resolvers allow the public to troubleshoot resource records without enforcing DNSSEC validation. Unfortunately, given no clear specifications, many resolvers mix the caching and reusing of DNS data introduced via troubleshooting with those in routine operations. This opens a new attack surface that thwarts domain resolution. 
@@ -37,80 +37,10 @@ For Microsoft DNS, we provide a virtual machine .ova file that can be imported i
 ### Software dependencies
 All the Dockerfiles in this artifact are built on **Ubuntu 22.04** with the Docker Engine. The Docker Engine can be installed on the host machine using the following command:
 ```bash
-apt install docker.io
+apt install -y docker.io
 ```
 
 The scripts for testing RUC vulnerabilities are executed in Python environment, e.g., **Python 3.10.12**. All the required Python packages are listed in [requirement.txt](poc_scripts/requirement.txt), which can be installed using the `pip` command. 
-
-## File structure
-```
-RUC_PoC
-├── dockers
-│   ├── dockerhub.md
-│   ├── nameserver.Dockerfile
-│   ├── resolver_software
-│   │   ├── bind.Dockerfile
-│   │   ├── knot.Dockerfile
-│   │   ├── microsoft
-│   │   │   ├── microsoft_setup.pdf
-│   │   │   └── Windows_Server_2022.ova.txt
-│   │   ├── powerdns.Dockerfile
-│   │   ├── technitium.Dockerfile
-│   │   └── unbound.Dockerfile
-│   └── ruc_attacker.Dockerfile
-├── environment_setup.md
-├── figures
-│   └── RUC_USENIX.png
-├── poc_scripts
-│   ├── basic_test.py
-│   ├── config.json
-│   ├── expected_test_result
-│   │   ├── log_ruc_test.csv
-│   │   └── log_ruc_test-microsoft.csv
-│   ├── requirement.txt
-│   ├── ruc_poc.py
-│   ├── test_basic_microsoft.ps1
-│   ├── test_basic.sh
-│   ├── test_microsoft.ps1
-│   ├── test_ruc_dnskey.sh
-│   ├── test_ruc_ds.sh
-│   ├── test_ruc_edns0.sh
-│   ├── test_ruc_nsip.sh
-│   └── utils.py
-├── README.md
-├── ruc_reproduction.md
-├── start_attacker.sh
-├── start_nameserver.sh
-├── start_resolver.sh
-└── victim_config
-    ├── apex_zone.txt
-    ├── attack_api
-    │   ├── api.py
-    │   ├── config.json
-    │   ├── config.py
-    │   ├── kill_attacker.sh
-    │   ├── nameserver_init.sh
-    │   ├── ruc_dnskey.py
-    │   ├── ruc_ds.py
-    │   ├── ruc_edns0.py
-    │   └── ruc_nsip.py
-    └── bind
-        ├── db.rucnsip.dnssec-ruc.xyz
-        ├── db.sub.victim-rucds.dnssec-ruc.xyz
-        ├── db.test.dnssec-ruc.xyz
-        ├── db.victim-rucdnskey.dnssec-ruc.xyz
-        ├── db.victim-rucds.dnssec-ruc.xyz
-        ├── db.victim-rucedns0.dnssec-ruc.xyz
-        ├── db.victim-rucnsip.dnssec-ruc.xyz
-        ├── dnssec_keys
-        │   ├── (victim domains' DNSKEYs)
-        │   └── ...
-        ├── named.conf
-        ├── named.conf.default-zones
-        ├── named.conf.local
-        ├── named.conf.options
-        └── rndc.key
-```
 
 ## Citing this paper
 In case you would like to cite RUC, you may use the following BibTex entry:
@@ -125,3 +55,6 @@ In case you would like to cite RUC, you may use the following BibTex entry:
   year={2025}
 }
 ```
+
+## Contact
+[zhangsh22@mails.tsinghua.edu.cn](zhangsh22@mails.tsinghua.edu.cn)
