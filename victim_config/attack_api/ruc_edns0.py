@@ -11,8 +11,8 @@ class RUCEDNS0_Nameserver:
         with open(f'config_subdomains.json') as f:
             config_dict=json.load(f)
 
-        self.target=config_dict['subdomains']['ruc_edns0']+'.'+apex_zone
-        self.apex_zone=apex_zone
+        self.target=config_dict['subdomains']['ruc_edns0']+'.'+apex_zone+'.'
+        self.apex_zone=apex_zone+'.'
 
         self.timestamp=config_dict[self.target]['TIMESTAMP']
         self.nsip=config_dict[self.target]['NSIP']

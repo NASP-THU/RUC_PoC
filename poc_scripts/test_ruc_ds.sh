@@ -4,29 +4,31 @@
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing BIND resolver against ruc_ds (w/o SIG)..."
+echo "Testing BIND resolver against ruc_ds (w/o SIG)..."
 docker restart ruc-bind
+bash warm_cache.sh 172.22.1.1
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.1 --ruc_variant ruc_ds --with_sig 0
 
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing BIND resolver against ruc_ds (w/ SIG)..."
+echo "Testing BIND resolver against ruc_ds (w/ SIG)..."
 docker restart ruc-bind
+bash warm_cache.sh 172.22.1.1
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.1 --ruc_variant ruc_ds --with_sig 1
 
 # test powerdns
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing PowerDNS resolver against ruc_ds (w/o SIG)..."
+echo "Testing PowerDNS resolver against ruc_ds (w/o SIG)..."
 docker restart ruc-powerdns
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.2 --ruc_variant ruc_ds --with_sig 0
 
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing PowerDNS resolver against ruc_ds (w/ SIG)..."
+echo "Testing PowerDNS resolver against ruc_ds (w/ SIG)..."
 docker restart ruc-powerdns
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.2 --ruc_variant ruc_ds --with_sig 1
 
@@ -34,14 +36,14 @@ docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing Unbound resolver against ruc_ds (w/o SIG)..."
+echo "Testing Unbound resolver against ruc_ds (w/o SIG)..."
 docker restart ruc-unbound
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.3 --ruc_variant ruc_ds --with_sig 0
 
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing Unbound resolver against ruc_ds (w/ SIG)..."
+echo "Testing Unbound resolver against ruc_ds (w/ SIG)..."
 docker restart ruc-unbound
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.3 --ruc_variant ruc_ds --with_sig 1
 
@@ -49,14 +51,14 @@ docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing Knot resolver against ruc_ds (w/o SIG)..."
+echo "Testing Knot resolver against ruc_ds (w/o SIG)..."
 docker restart ruc-knot
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.4 --ruc_variant ruc_ds --with_sig 0
 
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing Knot resolver against ruc_ds (w/ SIG)..."
+echo "Testing Knot resolver against ruc_ds (w/ SIG)..."
 docker restart ruc-knot
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.4 --ruc_variant ruc_ds --with_sig 1
 
@@ -64,13 +66,13 @@ docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing Technitium resolver against ruc_ds (w/o SIG)..."
+echo "Testing Technitium resolver against ruc_ds (w/o SIG)..."
 docker restart ruc-technitium
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.5 --ruc_variant ruc_ds --with_sig 0
 
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing Technitium resolver against ruc_ds (w/ SIG)..."
+echo "Testing Technitium resolver against ruc_ds (w/ SIG)..."
 docker restart ruc-technitium
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.5 --ruc_variant ruc_ds --with_sig 1

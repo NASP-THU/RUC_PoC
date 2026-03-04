@@ -28,12 +28,11 @@ For Microsoft DNS resolver, we provide a ready-made Windows Server virtual machi
 
 You can log in to the server as `Administrator` with password `RUC@Sec25`. We have put the scripts under `C:\Users\Administrator\Desktop\poc_scripts\` on the VM. All necessary python packages have already been installed.
 
-Besides, the experiment requires another VM to serve as the authoritative nameserver of the RUC victim domains. This VM runs Ubuntu Server 22.04, and resides within the same VM network (e.g., `VMnet8` for the NAT network adapter) with the Windows Server VM. Please refer to the [manual](victim_config/ubuntu_vm.pdf) for the setup of the Ubuntu VM.
+Besides, the experiment requires another VM to serve as the authoritative nameserver of the RUC victim domains. This VM runs Ubuntu Server 22.04, and resides within the same VM network (e.g., `VMnet8` for the NAT network adapter) with the Windows Server VM. Please refer to the [manual](victim_config/dnssec-ruc-ms.xyz/ubuntu_setup.pdf) for the setup of the Ubuntu VM.
 
-Clone this repository to the home directory of the Ubuntu VM. Then, run the script [nameserver_config_ms.sh](victim_config/nameserver_config_ms.sh) to configure the network interface and run the authoritative DNS service.
+Clone this repository to the home directory of the Ubuntu VM. Then, run the following script to configure the network interface and run the authoritative DNS service:
 ```bash
-cd victim_config
-sudo bash nameserver_config_ms.sh
+sudo bash start_nameserver_ms.sh
 ```
 
 Now the setup for evaluating Microsoft DNS resolver has finished, and you can go to the basic test section to verify the setup.

@@ -43,7 +43,7 @@ def kill_ruc_attacker():
     os.system(f'chmod +x kill_attacker.sh')
     return os.system(f'bash kill_attacker.sh')
 
-def ruc_dnskey_attack(mode,with_sig):
+def ruc_dnskey_attack(apex_zone,mode,with_sig):
     if mode=='resume':
         code1=kill_ruc_attacker()
         code2=os.system('service named start')
@@ -56,7 +56,7 @@ def ruc_dnskey_attack(mode,with_sig):
     elif mode=='inject':
         code0=kill_ruc_attacker()
         code1=os.system('service named stop')
-        code2=os.system(f'screen -dmS atk-ruc-dnskey python3 ruc_dnskey.py --with_sig '+str(with_sig))
+        code2=os.system(f'screen -dmS atk-ruc-dnskey python3 ruc_dnskey.py --apex_zone {apex_zone} --with_sig {with_sig}')
         if code0!=0:
             return 1,'fail to kill attacker script'
         if code1!=0:
@@ -65,7 +65,7 @@ def ruc_dnskey_attack(mode,with_sig):
             return 4,'fail to run attacker script'
         return 0,'inject success'
 
-def ruc_ds_attack(mode,with_sig):
+def ruc_ds_attack(apex_zone,mode,with_sig):
     if mode=='resume':
         code1=kill_ruc_attacker()
         code2=os.system('service named start')
@@ -78,7 +78,7 @@ def ruc_ds_attack(mode,with_sig):
     elif mode=='inject':
         code0=kill_ruc_attacker()
         code1=os.system('service named stop')
-        code2=os.system(f'screen -dmS atk-ruc-ds python3 ruc_ds.py --with_sig '+str(with_sig))
+        code2=os.system(f'screen -dmS atk-ruc-ds python3 ruc_ds.py --apex_zone {apex_zone} --with_sig {with_sig}')
         if code0!=0:
             return 1,'fail to kill attacker script'
         if code1!=0:
@@ -87,7 +87,7 @@ def ruc_ds_attack(mode,with_sig):
             return 4,'fail to run attacker script'
         return 0,'inject success'
 
-def ruc_nsip_attack(mode):
+def ruc_nsip_attack(apex_zone,mode):
     if mode=='resume':
         code1=kill_ruc_attacker()
         code2=os.system('service named start')
@@ -100,7 +100,7 @@ def ruc_nsip_attack(mode):
     elif mode=='inject':
         code0=kill_ruc_attacker()
         code1=os.system('service named stop')
-        code2=os.system(f'screen -dmS atk-ruc-nsip python3 ruc_nsip.py')
+        code2=os.system(f'screen -dmS atk-ruc-nsip python3 ruc_nsip.py --apex_zone {apex_zone}')
         if code0!=0:
             return 1,'fail to kill attacker script'
         if code1!=0:
@@ -109,7 +109,7 @@ def ruc_nsip_attack(mode):
             return 4,'fail to run attacker script'
         return 0,'inject success'
     
-def ruc_edns0_attack(mode):
+def ruc_edns0_attack(apex_zone,mode):
     if mode=='resume':
         code1=kill_ruc_attacker()
         code2=os.system('service named start')
@@ -122,7 +122,7 @@ def ruc_edns0_attack(mode):
     elif mode=='inject':
         code0=kill_ruc_attacker()
         code1=os.system('service named stop')
-        code2=os.system(f'screen -dmS atk-ruc-edns0 python3 ruc_edns0.py')
+        code2=os.system(f'screen -dmS atk-ruc-edns0 python3 ruc_edns0.py --apex_zone {apex_zone}')
         if code0!=0:
             return 1,'fail to kill attacker script'
         if code1!=0:

@@ -38,6 +38,10 @@
         "opt": 1,
         "do": 0
     },
+    "basic_test": {
+        "interval": 1,
+        "round": 5
+    },
     "inject": {
         "interval": 1,
         "round": 5
@@ -47,5 +51,6 @@
         "round": 10
     },
     "result_folder": "ruc_test_result_raw",
-    "test_log_dir": "ruc_test_result"
+    "test_log_dir": "ruc_test_result",
+    "basic_test_log_dir": "basic_test_result"
 }

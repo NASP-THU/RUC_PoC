@@ -39,3 +39,7 @@ ns1.rucnsip         IN  A       192.168.45.70
 victim-rucedns0     IN  NS      ns.rucedns0.dnssec-ruc-ms.xyz.
 victim-rucedns0     IN  DS      25261 8 2 44FB1AC8F24AB1D2B65644D2CDE3D0ACEAF14CC54980CFFD282D6334 1465FB2E
 ns.rucedns0         IN  A       192.168.45.70
+
+; apex KSK and ZSK
+@                   IN  DNSKEY  257 3 13 mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+ KkxLbxILfDLUT0rAK9iUzy1L53eKGQ==
+@                   IN  DNSKEY  256 3 13 oJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8 KqXXFJkqmVfRvMGPmM1x8fGAa2XhSA==

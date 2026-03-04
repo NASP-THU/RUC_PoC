@@ -1,6 +1,6 @@
 # Proof-of-Concept of the RUC Attack
 
-<p><a href="https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan"><img alt="RUC thumbnail" align="right" width="200" src="figures/RUC_USENIX.png"></a></p>
+<p><a href="https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan"><img alt="RUC thumbnail" align="right" width="200" src="files/RUC_USENIX.png"></a></p>
 
 This is the artifact for the Proof-of-Concept of the RUC attack, paper titled **"Your Shield is My Sword: A Persistent Denial-of-Service Attack via the Reuse of Unvalidated Caches in DNSSEC Validation"**.
 
@@ -10,7 +10,7 @@ For more details, please refer to [our paper](https://www.usenix.org/conference/
 
 ## 🌟 Recent updates
 Please refer to the [main branch](https://github.com/NASP-THU/RUC_PoC) for the updated version of this artifact.
-- **[2026-03-05]**: The authoritative nameservers of the apex domains for RUC tests (`dnssec-ruc.xyz` and `dnssec-ruc-ms.xyz`) have been shifted to Cloudflare. The NS and DNSKEY records in the [apex zonefile](victim_config/apex_zone.txt) have been updated correspondingly. The scripts and workflow to reproduce RUC on Linux-based resolvers remain unchanged.
+- **[2026-03-05]**: The authoritative nameservers of the apex domains for RUC tests (`dnssec-ruc.xyz` and `dnssec-ruc-ms.xyz`) have been shifted to Cloudflare. The NS and DNSKEY records in the [apex zonefile](victim_config/dnssec-ruc.xyz/db.dnssec-ruc.xyz) have been updated correspondingly. The scripts and workflow to reproduce RUC on Linux-based resolvers remain unchanged.
 - **[2026-03-05]**: For Microsoft DNS resolver, RUC now can be reproduced within the local virtual machine network. Please refer to the [instructions](https://github.com/NASP-THU/RUC_PoC/blob/main/environment_setup.md#microsoft-dns-resolver) for details.
 
 ## Introduction
@@ -57,4 +57,4 @@ In case you would like to cite RUC, you may use the following BibTex entry:
 ```
 
 ## Contact
-[zhangsh22@mails.tsinghua.edu.cn](zhangsh22@mails.tsinghua.edu.cn)
+[zhangsh22@mails.tsinghua.edu.cn](mailto:zhangsh22@mails.tsinghua.edu.cn)

@@ -10,8 +10,8 @@ class RUCNSIP_Nameserver:
         with open('config_subdomains.json') as f:
             config_dict=json.load(f)
 
-        self.target=config_dict['subdomains']['ruc_nsip']+'.'+apex_zone
-        self.target_nsdom=config_dict['subdomains']['ruc_nsip_nsdom']+'.'+apex_zone
+        self.target=config_dict['subdomains']['ruc_nsip']+'.'+apex_zone+'.'
+        self.target_nsdom=config_dict['subdomains']['ruc_nsip_nsdom']+'.'+apex_zone+'.'
 
         self.timestamp=config_dict[self.target_nsdom]['TIMESTAMP']
         self.nsip=config_dict[self.target_nsdom]['NSIP']

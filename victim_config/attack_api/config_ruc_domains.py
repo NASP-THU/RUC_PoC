@@ -220,7 +220,7 @@ def config_main(apex_zone):
     rrsig_soa_rucedns0=get_rtype_rrsig('SOA',victim_rucedns0,victim_rucedns0)
     rrsig_nsec_rucedns0=get_rtype_rrsig('NSEC',victim_rucedns0,victim_rucedns0)
 
-    config_dict={
+    subdomain_config_dict={
         victim_rucdnskey+'.':{
             'TIMESTAMP':timestamp,
             'NSIP':nsip,
@@ -323,7 +323,7 @@ def config_main(apex_zone):
         "subdomains":config_dict['subdomains']
     }
     with open('config_subdomains.json','w') as f:
-        json.dump(config_dict,f)
+        json.dump(subdomain_config_dict,f)
     os.system('service named restart')
     print('Update attack configuration, done.')
 

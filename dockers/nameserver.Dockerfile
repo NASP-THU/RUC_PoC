@@ -17,11 +17,16 @@ RUN pip3 install dnslib flask flask_basicauth
 # copy nameserver configuration files
 RUN mkdir -p /etc/bind
 COPY victim_config/$APEX_ZONE/bind/ /etc/bind/
+COPY victim_config/named /etc/init.d/
+RUN chmod +x /etc/init.d/named
+
+# copy attacker api scripts
 RUN mkdir -p /root/attack_api
 COPY victim_config/attack_api/ /root/attack_api/
 COPY poc_scripts/config.json /root/attack_api/
 
 # initialize victim domain's nameserver
 EXPOSE 53/tcp 53/udp 57691/tcp
-RUN chmod +x /root/attack_api/nameserver_init.sh
-ENTRYPOINT ["/root/attack_api/nameserver_init.sh"]
+WORKDIR /root/attack_api/
+RUN chmod +x nameserver_init.sh
+ENTRYPOINT ["./nameserver_init.sh"]
