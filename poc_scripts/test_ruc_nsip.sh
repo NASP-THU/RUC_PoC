@@ -4,7 +4,7 @@
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing BIND resolver against ruc_nsip..."
+echo "Testing BIND resolver against ruc_nsip..."
 docker restart ruc-bind
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.1 --ruc_variant ruc_nsip
 
@@ -12,7 +12,7 @@ docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing PowerDNS resolver against ruc_nsip..."
+echo "Testing PowerDNS resolver against ruc_nsip..."
 docker restart ruc-powerdns
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.2 --ruc_variant ruc_nsip
 
@@ -20,7 +20,7 @@ docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing Unbound resolver against ruc_nsip..."
+echo "Testing Unbound resolver against ruc_nsip..."
 docker restart ruc-unbound
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.3 --ruc_variant ruc_nsip
 
@@ -28,7 +28,7 @@ docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing Knot resolver against ruc_nsip..."
+echo "Testing Knot resolver against ruc_nsip..."
 docker restart ruc-knot
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.4 --ruc_variant ruc_nsip
 
@@ -36,6 +36,6 @@ docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.
 echo "Preparing nameserver..."
 docker restart ruc-nameserver
 sleep 5
-echo "Tesing Technitium resolver against ruc_nsip..."
+echo "Testing Technitium resolver against ruc_nsip..."
 docker restart ruc-technitium
 docker exec ruc-attacker python3 /root/poc_scripts/ruc_poc.py --resolver_ip 172.22.1.5 --ruc_variant ruc_nsip
