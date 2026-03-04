@@ -2,6 +2,7 @@
 
 # test bind
 docker restart ruc-bind
+bash warm_cache.sh 172.22.1.1
 docker exec ruc-attacker python3 /root/poc_scripts/basic_test.py --resolver_ip 172.22.1.1
 
 # test powerdns

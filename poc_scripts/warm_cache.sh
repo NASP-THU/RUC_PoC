@@ -6,6 +6,6 @@
 
 for i in {1..5}
 do
-    docker exec ruc-attacker dig +dnssec @$0 grannbo.ns.cloudflare.com
-    docker exec ruc-attacker dig +dnssec @$0 koa.ns.cloudflare.com
+    docker exec ruc-attacker dig +dnssec @$1 grannbo.ns.cloudflare.com
+    docker exec ruc-attacker dig +dnssec @$1 koa.ns.cloudflare.com
 done

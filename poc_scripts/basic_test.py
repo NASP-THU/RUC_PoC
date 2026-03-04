@@ -10,9 +10,9 @@ class BasicTest:
     def __init__(self,resolver_ip):
         self.resolver_ip=resolver_ip
         if self.resolver_ip!='127.0.0.1':
-            self.resolver_os='windows'
-        else:
             self.resolver_os='linux'
+        else:
+            self.resolver_os='windows'
 
         with open(Path(os.getcwd()) / 'config.json') as f:
             config_dict=json.load(f)
@@ -26,6 +26,7 @@ class BasicTest:
         content=''
         
         # retry multiple times to avoid accidental response failures due to the cold start of the resolver cache
+        print(self.test_domain)
         for i in range(self.basic_test_round):
             dns_output=str(send_dns_request(self.resolver_ip,self.test_domain,'A',0,0,1,1))
             content+=dns_output

@@ -10,8 +10,8 @@ For more details, please refer to [our paper](https://www.usenix.org/conference/
 
 ## 🌟 Recent updates
 Please refer to the [main branch](https://github.com/NASP-THU/RUC_PoC) for the updated version of this artifact.
-- **[2026-03-05]**: The authoritative nameservers of the apex domains for RUC tests (`dnssec-ruc.xyz` and `dnssec-ruc-ms.xyz`) have been shifted to Cloudflare. The NS and DNSKEY records in the [apex zonefile](victim_config/dnssec-ruc.xyz/db.dnssec-ruc.xyz) have been updated correspondingly. The scripts and workflow to reproduce RUC on Linux-based resolvers remain unchanged.
-- **[2026-03-05]**: For Microsoft DNS resolver, RUC now can be reproduced within the local virtual machine network. Please refer to the [instructions](https://github.com/NASP-THU/RUC_PoC/blob/main/environment_setup.md#microsoft-dns-resolver) for details.
+- **[March 2026]**: The authoritative nameservers of the apex domains for RUC tests (`dnssec-ruc.xyz` and `dnssec-ruc-ms.xyz`) have been shifted to Cloudflare. The NS and DNSKEY records in the [apex zonefile](victim_config/dnssec-ruc.xyz/db.dnssec-ruc.xyz) have been updated correspondingly. For Linux-based resolvers, the scripts and workflow to reproduce RUC remain unchanged.
+- **[March 2026]**: For Microsoft DNS resolver, RUC now can be reproduced within the local virtual machine network. Please refer to the [instructions](https://github.com/NASP-THU/RUC_PoC/blob/main/environment_setup.md#microsoft-dns-resolver) for details.
 
 ## Introduction
 The Domain Name System Security Extensions (DNSSEC), designed to ensure the authenticity and integrity of DNS data, has been deployed in over 90% of top-level zones. To mitigate service outages due to DNSSEC misconfigurations, DNS resolvers allow the public to troubleshoot resource records without enforcing DNSSEC validation. Unfortunately, given no clear specifications, many resolvers mix the caching and reusing of DNS data introduced via troubleshooting with those in routine operations. This opens a new attack surface that thwarts domain resolution. 
