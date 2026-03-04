@@ -1,6 +1,6 @@
 {
     "victim-rucdnskey.dnssec-ruc.xyz.": {
-        "TIMESTAMP": "20250629",
+        "TIMESTAMP": "20260101",
         "NSIP": "172.22.2.1",
         "GOOD_TTL": 10,
         "BAD_TTL": 86400,
@@ -22,7 +22,7 @@
         }
     },
     "victim-rucds.dnssec-ruc.xyz.": {
-        "TIMESTAMP": "20250629",
+        "TIMESTAMP": "20260101",
         "NSIP": "172.22.2.1",
         "GOOD_TTL": 10,
         "BAD_TTL": 86400,
@@ -51,7 +51,7 @@
         }
     },
     "rucnsip.dnssec-ruc.xyz.": {
-        "TIMESTAMP": "20250629",
+        "TIMESTAMP": "20260101",
         "NSIP": "172.22.2.1",
         "NSIP_BAD": "172.22.2.2",
         "GOOD_TTL": 10,
@@ -74,7 +74,7 @@
         }
     },
     "victim-rucedns0.dnssec-ruc.xyz.": {
-        "TIMESTAMP": "20250629",
+        "TIMESTAMP": "20260101",
         "NSIP": "172.22.2.1",
         "GOOD_TTL": 10,
         "BAD_TTL": 86400,
@@ -96,5 +96,15 @@
         },
         "RRSIG_SOA": "IdeIc1GNFc/BqyYGp+QfgR1IYnhnK9Yj34+8vVwSpyjbtX5/aEMlW16E POuEqwtsXJ4oLiBMRRz/c78HYp70ywGZE/7I9GrVHR6KDkWVt70A2P8l OY1gNWdYAltA/LFbR9kr3ZQnbEt5lf4B/Jhm8SU3mKdz8L41Yx4jvzXA xoQ/XGKLz8h29YaHHaagRDNQITaQIC2nkobQ7j9NpeUGRGOz0lqF3nsu yvvUU8qFHocFpFSTRDKNuB7RwH5ljFxd6EeI1tIJ0crbDFGUdFrrjJ0b 4JKZX9bXmNti2B1pvnPoVjWoKESNeZcvAjZRlzvLj0LnRDTHkGvQPNO0 Q9Yoaw==",
         "RRSIG_NSEC": "e9y2NM5ReSY0+Ga0dTSdhar2e6WyM9btBffXFc+TeytNd1cPNrY1AelB WdAcT9a/uQJ4cR83aMB+j4hqYazoW/Ccw0qYrw2ZBs8cmPN2lgE66Cc9 MavztgmGMxkCNBBeZY1HU9hEpZKsUWfmhNGyDxkpvutdwRwsbQ4eKnmJ x8QkpD8ktMYUm1U8VbMwld93VSN0jcMS/CA2lyWlxPafR54VLc57H7BQ EQe/V3n+5uPsn7/J2PkcIe1QrjRD6zubFN925K0T++ynMaT9Y9z1ceUl daRPqto4NhAe+i5KP3b0MZaNSp5X596NzaSzn+otcndbYoWdgsnRd5FM RWq8xQ=="
+    },
+    "nameserver_threads": 1000,
+    "subdomains": {
+        "test": "test",
+        "ruc_dnskey": "victim-rucdnskey",
+        "ruc_ds": "sub.victim-rucds",
+        "ruc_ds_apex": "victim-rucds",
+        "ruc_nsip": "victim-rucnsip",
+        "ruc_nsip_nsdom": "rucnsip",
+        "ruc_edns0": "victim-rucedns0"
     }
 }

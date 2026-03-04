@@ -1,35 +1,25 @@
 import os
 import json
 import time
+import argparse
 import calendar
-from api import BASE_FOLDER
 from datetime import datetime
 
+with open('config.json') as f:
+    config_dict=json.load(f)
+
 # !!! The original TTL of the victim domain !!!
-GOOD_TTL=10
+GOOD_TTL=config_dict['record_ttl']['good']
 
 # !!! The manipulated TTL for forged records (to extend the DoS duration of RUC) !!!
-BAD_TTL=86400
-
-VICTIM_APEX='dnssec-ruc.xyz'
-VICTIM_TEST='test.'+VICTIM_APEX
-VICTIM_RUCDNSKEY='victim-rucdnskey.'+VICTIM_APEX
-VICTIM_RUCDS='sub.victim-rucds.'+VICTIM_APEX
-VICTIM_RUCDS_APEX='victim-rucds.'+VICTIM_APEX
-VICTIM_RUCNSIP='victim-rucnsip.'+VICTIM_APEX
-VICTIM_RUCNSIP_NSDOM='rucnsip.'+VICTIM_APEX
-VICTIM_RUCEDNS0='victim-rucedns0.'+VICTIM_APEX
-
-NSIP='172.22.2.1'
-NSIP_BAD='172.22.2.2'
+BAD_TTL=config_dict['record_ttl']['bad']
 
 def dnssec_signzone(domain):
     os.system(f'dnssec-signzone -K /etc/bind/dnssec_keys -o {domain} /etc/bind/db.{domain}')
     print(f'dnssec-signzone done: {domain}')
     os.system(f'rm dsset-{domain}.')
 
-def dnssec_signzones():
-    ruc_domain_list=[VICTIM_TEST, VICTIM_RUCDNSKEY, VICTIM_RUCDS, VICTIM_RUCDS_APEX, VICTIM_RUCNSIP, VICTIM_RUCNSIP_NSDOM, VICTIM_RUCEDNS0]
+def dnssec_signzones(ruc_domain_list):
     for ruc_domain in ruc_domain_list:
         dnssec_signzone(ruc_domain)
 
@@ -192,32 +182,48 @@ def get_ds(sub,apex):
                 digest=digest+seg
     return tag_ds,alg_ds,hash_ds,digest
 
-def config_main():
-    dnssec_signzones()
+def config_main(apex_zone):
+    if apex_zone=='dnssec-ruc-ms.xyz':
+        resolver_os='windows'
+    else:
+        resolver_os='linux'
+    
+    victim_test=config_dict['subdomains']['test']+'.'+apex_zone
+    victim_rucdnskey=config_dict['subdomains']['ruc_dnskey']+'.'+apex_zone
+    victim_rucds=config_dict['subdomains']['ruc_ds']+'.'+apex_zone
+    victim_rucds_apex=config_dict['subdomains']['ruc_ds_apex']+'.'+apex_zone
+    victim_rucnsip=config_dict['subdomains']['ruc_nsip']+'.'+apex_zone
+    victim_rucnsip_nsdom=config_dict['subdomains']['ruc_nsip_nsdom']+'.'+apex_zone
+    victim_rucedns0=config_dict['subdomains']['ruc_edns0']+'.'+apex_zone
+
+    nsip=config_dict['nsip'][resolver_os]['good']
+    nsip_bad=config_dict['nsip'][resolver_os]['bad']
+
+    dnssec_signzones([victim_test, victim_rucdnskey, victim_rucds, victim_rucds_apex, victim_rucnsip, victim_rucnsip_nsdom, victim_rucedns0])
 
     now = datetime.now()
     timestamp = now.strftime("%Y%m%d")
 
-    zsk_rucdnskey,ksk_rucdnskey,tag_zsk_rucdnskey,tag_ksk_rucdnskey,alg_zsk_rucdnskey,alg_ksk_rucdnskey=get_dnskey(VICTIM_RUCDNSKEY)
-    rrsig_zsk_rucdnskey,rrsig_ksk_rucdnskey,sig_inc_time_rucdnskey,sig_exp_time_rucdnskey=get_dnskey_rrsig(VICTIM_RUCDNSKEY,tag_zsk_rucdnskey,tag_ksk_rucdnskey)
+    zsk_rucdnskey,ksk_rucdnskey,tag_zsk_rucdnskey,tag_ksk_rucdnskey,alg_zsk_rucdnskey,alg_ksk_rucdnskey=get_dnskey(victim_rucdnskey)
+    rrsig_zsk_rucdnskey,rrsig_ksk_rucdnskey,sig_inc_time_rucdnskey,sig_exp_time_rucdnskey=get_dnskey_rrsig(victim_rucdnskey,tag_zsk_rucdnskey,tag_ksk_rucdnskey)
 
-    zsk_rucds_apex,ksk_rucds_apex,tag_zsk_rucds_apex,tag_ksk_rucds_apex,alg_zsk_rucds_apex,alg_ksk_rucds_apex=get_dnskey(VICTIM_RUCDS_APEX)
-    tag_ds_rucds,alg_ds_rucds,hash_ds_rucds,ds_rucds=get_ds(VICTIM_RUCDS.replace('.'+VICTIM_RUCDS_APEX,''),VICTIM_RUCDS_APEX)
-    rrsig_zsk_rucds_apex,rrsig_ksk_rucds_apex,sig_inc_time_rucds_apex,sig_exp_time_rucds_apex=get_dnskey_rrsig(VICTIM_RUCDS_APEX,tag_zsk_rucds_apex,tag_ksk_rucds_apex)
-    rrsig_ds_rucds=get_rtype_rrsig('DS',VICTIM_RUCDS_APEX,VICTIM_RUCDS)
+    zsk_rucds_apex,ksk_rucds_apex,tag_zsk_rucds_apex,tag_ksk_rucds_apex,alg_zsk_rucds_apex,alg_ksk_rucds_apex=get_dnskey(victim_rucds_apex)
+    tag_ds_rucds,alg_ds_rucds,hash_ds_rucds,ds_rucds=get_ds(victim_rucds.replace('.'+victim_rucds_apex,''),victim_rucds_apex)
+    rrsig_zsk_rucds_apex,rrsig_ksk_rucds_apex,sig_inc_time_rucds_apex,sig_exp_time_rucds_apex=get_dnskey_rrsig(victim_rucds_apex,tag_zsk_rucds_apex,tag_ksk_rucds_apex)
+    rrsig_ds_rucds=get_rtype_rrsig('DS',victim_rucds_apex,victim_rucds)
 
-    zsk_rucnsip_nsdom,ksk_rucnsip_nsdom,tag_zsk_rucnsip_nsdom,tag_ksk_rucnsip_nsdom,alg_zsk_rucnsip_nsdom,alg_ksk_rucnsip_nsdom=get_dnskey(VICTIM_RUCNSIP_NSDOM)
-    rrsig_zsk_rucnsip_nsdom,rrsig_ksk_rucnsip_nsdom,sig_inc_time_rucnsip_nsdom,sig_exp_time_rucnsip_nsdom=get_dnskey_rrsig(VICTIM_RUCNSIP_NSDOM,tag_zsk_rucnsip_nsdom,tag_ksk_rucnsip_nsdom)
+    zsk_rucnsip_nsdom,ksk_rucnsip_nsdom,tag_zsk_rucnsip_nsdom,tag_ksk_rucnsip_nsdom,alg_zsk_rucnsip_nsdom,alg_ksk_rucnsip_nsdom=get_dnskey(victim_rucnsip_nsdom)
+    rrsig_zsk_rucnsip_nsdom,rrsig_ksk_rucnsip_nsdom,sig_inc_time_rucnsip_nsdom,sig_exp_time_rucnsip_nsdom=get_dnskey_rrsig(victim_rucnsip_nsdom,tag_zsk_rucnsip_nsdom,tag_ksk_rucnsip_nsdom)
 
-    zsk_rucedns0,ksk_rucedns0,tag_zsk_rucedns0,tag_ksk_rucedns0,alg_zsk_rucedns0,alg_ksk_rucedns0=get_dnskey(VICTIM_RUCEDNS0)
-    rrsig_zsk_rucedns0,rrsig_ksk_rucedns0,sig_inc_time_rucedns0,sig_exp_time_rucedns0=get_dnskey_rrsig(VICTIM_RUCEDNS0,tag_zsk_rucedns0,tag_ksk_rucedns0)
-    rrsig_soa_rucedns0=get_rtype_rrsig('SOA',VICTIM_RUCEDNS0,VICTIM_RUCEDNS0)
-    rrsig_nsec_rucedns0=get_rtype_rrsig('NSEC',VICTIM_RUCEDNS0,VICTIM_RUCEDNS0)
+    zsk_rucedns0,ksk_rucedns0,tag_zsk_rucedns0,tag_ksk_rucedns0,alg_zsk_rucedns0,alg_ksk_rucedns0=get_dnskey(victim_rucedns0)
+    rrsig_zsk_rucedns0,rrsig_ksk_rucedns0,sig_inc_time_rucedns0,sig_exp_time_rucedns0=get_dnskey_rrsig(victim_rucedns0,tag_zsk_rucedns0,tag_ksk_rucedns0)
+    rrsig_soa_rucedns0=get_rtype_rrsig('SOA',victim_rucedns0,victim_rucedns0)
+    rrsig_nsec_rucedns0=get_rtype_rrsig('NSEC',victim_rucedns0,victim_rucedns0)
 
     config_dict={
-        VICTIM_RUCDNSKEY+'.':{
+        victim_rucdnskey+'.':{
             'TIMESTAMP':timestamp,
-            'NSIP':NSIP,
+            'NSIP':nsip,
             'GOOD_TTL':GOOD_TTL,
             'BAD_TTL':BAD_TTL,
             'SIGTIME':{
@@ -237,9 +243,9 @@ def config_main():
                 'ALG':alg_ksk_rucdnskey
             }
         },
-        VICTIM_RUCDS_APEX+'.':{
+        victim_rucds_apex+'.':{
             'TIMESTAMP':timestamp,
-            'NSIP':NSIP,
+            'NSIP':nsip,
             'GOOD_TTL':GOOD_TTL,
             'BAD_TTL':BAD_TTL,
             'SIGTIME':{
@@ -266,10 +272,10 @@ def config_main():
                 'RRSIG':rrsig_ds_rucds.replace('\n','')
             }
         },
-        VICTIM_RUCNSIP_NSDOM+'.':{
+        victim_rucnsip_nsdom+'.':{
             'TIMESTAMP':timestamp,
-            'NSIP':NSIP,
-            'NSIP_BAD':NSIP_BAD,
+            'NSIP':nsip,
+            'NSIP_BAD':nsip_bad,
             'GOOD_TTL':GOOD_TTL,
             'BAD_TTL':BAD_TTL,
             'SIGTIME':{
@@ -289,9 +295,9 @@ def config_main():
                 'ALG':alg_ksk_rucnsip_nsdom
             },
         },
-        VICTIM_RUCEDNS0+'.':{
+        victim_rucedns0+'.':{
             'TIMESTAMP':timestamp,
-            'NSIP':NSIP,
+            'NSIP':nsip,
             'GOOD_TTL':GOOD_TTL,
             'BAD_TTL':BAD_TTL,
             'SIGTIME':{
@@ -312,13 +318,19 @@ def config_main():
             },
             'RRSIG_SOA':rrsig_soa_rucedns0.replace('\n',''),
             'RRSIG_NSEC':rrsig_nsec_rucedns0.replace('\n','')
-        }
+        },
+        "nameserver_threads":config_dict['attack_api']['nameserver_threads'],
+        "subdomains":config_dict['subdomains']
     }
-    with open(f'{BASE_FOLDER}/config.json','w') as f:
+    with open('config_subdomains.json','w') as f:
         json.dump(config_dict,f)
     os.system('service named restart')
     print('Update attack configuration, done.')
 
 if __name__=='__main__':
-    config_main()
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--apex_zone',required=True)
+    args=parser.parse_args()
+
+    config_main(args.apex_zone)
     

@@ -10,8 +10,8 @@ $TTL        3600
 ;
 
 ; apex NS delegation
-@           IN  NS      ns.dnssec-ruc.xyz.
-ns          IN  A       47.251.106.156
+@           IN  NS      grannbo.ns.cloudflare.com.
+@           IN  NS      koa.ns.cloudflare.com.
 
 ; domain for the basic test
 test                IN  NS      ns.test.dnssec-ruc.xyz.
@@ -41,5 +41,5 @@ victim-rucedns0     IN  DS      12392 8 2 CFE3B48979EF20E60F1A02874657C5C862E574
 ns.rucedns0         IN  A       172.22.2.1
 
 ; apex KSK and ZSK
-@           IN  DNSKEY 257 3 8 AwEAAdNaLuCWDgKr/DnMpg6nNG1NbIxxY1ALD26B6qqE+eUABlP+xFjk H1nsixHU1smeWBappMosUtqNJbCurC3siHPzjhTIToUqZpzP8J9zf2+s psRAvpSHDszQ5/X52wtmevj3na4YofRmkS/CfoKt4C9LBabRIEPOuuqP TLXcjL2RnRsapdXfcCzYvlafJOKG/I87QT5fhzSUzxi8uBGp+F7HE7Kl HcB6/elZgP4f9m8nnst6cpa8jqEGx0c70CdFWATdkYOukvSd5ope6Eaq v09PqgLf7666RUFgvsOHUa20mDr233j2gpY1F6Gx9w6MGWFIWl9HQlB5 nBK2+NQPh+s=
-@           IN  DNSKEY 256 3 8 AwEAAd3fdB0Sz67OWXIZiH96l+Ui6NwI/LqYkOxD43XshmrxUgCKabPb aGMNlQEuPKcE/wQZJSluXgM3wBlmcCICcRkQg3ZbMwVvroafV/5/HSgc 3Sp5VKZhU4nNmM/illFTWvzizcht8PsTCkrIQOHC7i3dkto5ktYCy7Y1 Y1jQ7vYzWbZ+qMu6CLLYAedC3wrUGiH2HfI4aUKbEqVQZRNnomFKvZs3 sqF75ET7abtz3eSu7BYegJ37tLOpYEhYyvvvQALC4W+YY9Sce317qmy7 u9lO4cSAa7wLwRlWAkWWJPQlcROSWCEBnPIPkaDYBujjtm+Dh0Nlur3q IQP36UF90D8=
+@           IN  DNSKEY 257 3 13 mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+ KkxLbxILfDLUT0rAK9iUzy1L53eKGQ==
+@           IN  DNSKEY 256 3 13 oJMRESz5E4gYzS/q6XDrvU1qMPYIjCWzJaOau8XNEZeqCYKD5ar0IRd8 KqXXFJkqmVfRvMGPmM1x8fGAa2XhSA==

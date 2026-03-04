@@ -1,6 +1,10 @@
 {
-    "victim_apex": "dnssec-ruc.xyz",
-    "victim_subdomains": {
+    "victim_apex": {
+        "linux": "dnssec-ruc.xyz",
+        "windows": "dnssec-ruc-ms.xyz"
+    },
+    "subdomains": {
+        "test": "test",
         "ruc_dnskey": "victim-rucdnskey",
         "ruc_ds": "sub.victim-rucds",
         "ruc_ds_apex": "victim-rucds",
@@ -8,12 +12,25 @@
         "ruc_nsip_nsdom": "rucnsip",
         "ruc_edns0": "victim-rucedns0"
     },
-    "victim_nameserver": {
-        "ip": "172.22.2.1",
+    "nsip":{
+        "linux":{
+            "good":"172.22.2.1",
+            "bad":"172.22.2.2"
+        },
+        "windows":{
+            "good":"192.168.45.70",
+            "bad":"192.168.45.71"
+        }
+    },
+    "attack_api": {
         "port": 57691,
         "url": "dnssec-ruc",
-        "username": "sec25ae",
-        "password": "dnssec-ruc"
+        "base_folder": "/root/attack_api",
+        "nameserver_threads": 1000
+    },
+    "record_ttl": {
+        "good": 10,
+        "bad": 86400
     },
     "troubleshooting_query": {
         "cd": 1,
@@ -29,5 +46,6 @@
         "interval": 1,
         "round": 10
     },
-    "result_folder": "ruc_test_result_raw"
+    "result_folder": "ruc_test_result_raw",
+    "test_log_dir": "ruc_test_result"
 }

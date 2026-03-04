@@ -1,45 +1,44 @@
 import sys
 import json
 import time
-import datetime
-import binascii
 import argparse
-from api import BASE_FOLDER
+import binascii
+import datetime
 from dnslib import *
 from dnslib.server import *
 
-APEX='dnssec-ruc.xyz.'
-TARGET='victim-rucds.'+APEX
-PREFIX='sub'
-NAMESERVER_THREADS=1000
+class RUCDS_Nameserver:
+    def __init__(self,apex_zone,with_sig):
+        with open('config_subdomains.json') as f:
+            config_dict=json.load(f)
 
-class NSNameserver:
-    def __init__(self,with_sig):
+        self.target=config_dict['subdomains']['ruc_ds']+'.'+apex_zone
+        self.target_apex=config_dict['subdomains']['ruc_ds_apex']+'.'+apex_zone
         self.with_sig=with_sig
 
-        with open(f'{BASE_FOLDER}/config.json') as f:
-            config_dict=json.load(f)
-        self.timestamp=config_dict[TARGET]['TIMESTAMP']
-        self.nsip=config_dict[TARGET]['NSIP']
-        self.good_ttl=config_dict[TARGET]['GOOD_TTL']
-        self.bad_ttl=config_dict[TARGET]['BAD_TTL']
-        self.sig_inc_time=config_dict[TARGET]['SIGTIME']['SIG_INC']
-        self.sig_exp_time=config_dict[TARGET]['SIGTIME']['SIG_EXP']
+        self.timestamp=config_dict[self.target_apex]['TIMESTAMP']
+        self.nsip=config_dict[self.target_apex]['NSIP']
+        self.good_ttl=config_dict[self.target_apex]['GOOD_TTL']
+        self.bad_ttl=config_dict[self.target_apex]['BAD_TTL']
+        self.sig_inc_time=config_dict[self.target_apex]['SIGTIME']['SIG_INC']
+        self.sig_exp_time=config_dict[self.target_apex]['SIGTIME']['SIG_EXP']
 
-        self.rrsig_zsk_apex=config_dict[TARGET]['ZSK']['RRSIG']
-        self.rrsig_ksk_apex=config_dict[TARGET]['KSK']['RRSIG']
-        self.zsk_apex=config_dict[TARGET]['ZSK']['KEY']
-        self.ksk_apex=config_dict[TARGET]['KSK']['KEY']
-        self.tag_zsk_apex=config_dict[TARGET]['ZSK']['TAG']
-        self.tag_ksk_apex=config_dict[TARGET]['KSK']['TAG']
-        self.alg_zsk_apex=config_dict[TARGET]['ZSK']['ALG']
-        self.alg_ksk_apex=config_dict[TARGET]['KSK']['ALG']
+        self.rrsig_zsk_apex=config_dict[self.target_apex]['ZSK']['RRSIG']
+        self.rrsig_ksk_apex=config_dict[self.target_apex]['KSK']['RRSIG']
+        self.zsk_apex=config_dict[self.target_apex]['ZSK']['KEY']
+        self.ksk_apex=config_dict[self.target_apex]['KSK']['KEY']
+        self.tag_zsk_apex=config_dict[self.target_apex]['ZSK']['TAG']
+        self.tag_ksk_apex=config_dict[self.target_apex]['KSK']['TAG']
+        self.alg_zsk_apex=config_dict[self.target_apex]['ZSK']['ALG']
+        self.alg_ksk_apex=config_dict[self.target_apex]['KSK']['ALG']
 
-        self.sub_ds_digest=config_dict[TARGET]['SUB_DS']['DIGEST']
-        self.sub_ds_tag=config_dict[TARGET]['SUB_DS']['TAG']
-        self.sub_ds_alg=config_dict[TARGET]['SUB_DS']['ALG']
-        self.sub_ds_hash=config_dict[TARGET]['SUB_DS']['HASH']
-        self.sub_ds_rrsig=config_dict[TARGET]['SUB_DS']['RRSIG']
+        self.sub_ds_digest=config_dict[self.target_apex]['SUB_DS']['DIGEST']
+        self.sub_ds_tag=config_dict[self.target_apex]['SUB_DS']['TAG']
+        self.sub_ds_alg=config_dict[self.target_apex]['SUB_DS']['ALG']
+        self.sub_ds_hash=config_dict[self.target_apex]['SUB_DS']['HASH']
+        self.sub_ds_rrsig=config_dict[self.target_apex]['SUB_DS']['RRSIG']
+
+        self.nameserver_threads=config_dict['nameserver_threads']
 
     def resolve(self,request,handler):
         reply=request.reply()
@@ -47,8 +46,8 @@ class NSNameserver:
         qtype=int(str(request.q.qtype))
         try:
             domain=qname.lower()
-            if domain.endswith(PREFIX+'.'+TARGET):
-                rr_ds=RR(rname=PREFIX+'.'+TARGET,rtype=43,ttl=self.bad_ttl,rdata=DS(self.sub_ds_tag,algorithm=self.sub_ds_alg,digest_type=self.sub_ds_hash,digest=binascii.unhexlify(self.sub_ds_digest)))
+            if domain.endswith(self.target):
+                rr_ds=RR(rname=self.target,rtype=43,ttl=self.bad_ttl,rdata=DS(self.sub_ds_tag,algorithm=self.sub_ds_alg,digest_type=self.sub_ds_hash,digest=binascii.unhexlify(self.sub_ds_digest)))
                 reply.add_answer(rr_ds)
                 if self.with_sig==1:
                     # mute the last bit of DS's RRSIG
@@ -56,11 +55,11 @@ class NSNameserver:
                     mutable_data=bytearray(original_bytes)
                     mutable_data[-1]=(mutable_data[-1] & 0b11111110) | 0b00000001
                     modified_data=bytes(mutable_data)
-                    rrsig_ds=RR(rname=PREFIX+'.'+TARGET,rtype=46,ttl=self.bad_ttl,rdata=RRSIG(covered=43,algorithm=self.alg_zsk_apex,labels=4,orig_ttl=self.bad_ttl,
+                    rrsig_ds=RR(rname=self.target,rtype=46,ttl=self.bad_ttl,rdata=RRSIG(covered=43,algorithm=self.alg_zsk_apex,labels=4,orig_ttl=self.bad_ttl,
                                                                                         sig_exp=self.sig_exp_time,
                                                                                         sig_inc=self.sig_inc_time,
                                                                                         key_tag=self.tag_zsk_apex,
-                                                                                        name=TARGET,
+                                                                                        name=self.target_apex,
                                                                                         sig=modified_data))
                     reply.add_answer(rrsig_ds)
 
@@ -89,11 +88,11 @@ class NSNameserver:
 
             return reply
 
-def main(config):
-    nameserver=NSNameserver(config)
+def main(apex_zone,with_sig):
+    nameserver=RUCDS_Nameserver(apex_zone,with_sig)
     
     dns_server=DNSServer(nameserver,port=53,address='0.0.0.0')
-    for _ in range(NAMESERVER_THREADS):
+    for _ in range(nameserver.nameserver_threads):
         dns_server.start_thread()
     
     try:
@@ -104,7 +103,8 @@ def main(config):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser()
+    parser.add_argument('--apex_zone')
     parser.add_argument('--with_sig')    # 0 for w/o SIG, 1 for w/ SIG
     args=parser.parse_args()
     
-    main(int(args.with_sig))
+    main(args.apex_zone,int(args.with_sig))

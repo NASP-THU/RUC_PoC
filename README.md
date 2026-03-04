@@ -8,6 +8,11 @@ The artifact includes the Dockerfiles of the tested DNS software and the victim 
 
 For more details, please refer to [our paper](https://www.usenix.org/conference/usenixsecurity25/presentation/zhang-shuhan) at USENIX Security '25 and its [artifact appendix](https://secartifacts.github.io/usenixsec2025/appendix-files/sec25cycle2ae-final10.pdf).
 
+## 🌟 Latest updates
+Please refer to the [main branch](https://github.com/NASP-THU/RUC_PoC) for the updated version of this artifact.
+- The authoritative nameservers of the apex domains for RUC tests (`dnssec-ruc.xyz` and `dnssec-ruc-ms.xyz`) have been shifted to Cloudflare. The NS and DNSKEY records in the [apex zonefile](victim_config/apex_zone.txt) have been updated correspondingly. The scripts and workflow to reproduce RUC on Linux-based resolvers remain unchanged.
+- For Microsoft DNS resolver, RUC now can be reproduced within the local virtual machine network. Please refer to [victim_config_ms](victim_config_ms/) for the detailed setup.
+
 ## Introduction
 The Domain Name System Security Extensions (DNSSEC), designed to ensure the authenticity and integrity of DNS data, has been deployed in over 90% of top-level zones. To mitigate service outages due to DNSSEC misconfigurations, DNS resolvers allow the public to troubleshoot resource records without enforcing DNSSEC validation. Unfortunately, given no clear specifications, many resolvers mix the caching and reusing of DNS data introduced via troubleshooting with those in routine operations. This opens a new attack surface that thwarts domain resolution. 
 
@@ -27,10 +32,10 @@ Due to ethics considerations, our artifact excludes scripts and datasets that co
 ### Hardware dependencies
 This artifact can run in standard CPU-based environments, and no specialized hardware is required. Nevertheless, to ensure the successful build of the DNS software docker images, we recommend that the host machine for setting up the Linux-based test environment is equipped with a number of CPU cores ≥ 4 and RAM ≥ 8GB.
 
-For Microsoft DNS, we provide a virtual machine .ova file that can be imported into a virtual machine tool, e.g., **VMware Workstation**. Note that this virtual machine is only compatible with host machines based on x86 architecture.
+For Microsoft DNS, we provide a virtual machine .ova file that can be imported into a virtual machine tool, e.g., **VMware Workstation**. Note that this virtual machine is only compatible with host machines based on **x86-64 (AMD64)** architecture.
 
 ### Software dependencies
-All the Dockerfiles in this artifact are built on **Ubuntu 22.04** with Docker Engine. The Docker Engine can be installed on the host machine using the following command:
+All the Dockerfiles in this artifact are built on **Ubuntu 22.04** with the Docker Engine. The Docker Engine can be installed on the host machine using the following command:
 ```bash
 apt install docker.io
 ```

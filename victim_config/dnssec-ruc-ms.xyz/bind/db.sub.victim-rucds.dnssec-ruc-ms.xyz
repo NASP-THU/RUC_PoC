@@ -1,0 +1,17 @@
+$ORIGIN sub.victim-rucds.dnssec-ruc-ms.xyz.
+$TTL    10
+@       SOA     ns.sub.victim-rucds.dnssec-ruc-ms.xyz. admin.dnssec-ruc-ms.xyz. (
+                2024103101; serial
+                3600      ; refresh
+                1800      ; retry
+                1209600   ; expire after 2 weeks
+                600 )     ; minimum TTL of 600 secs
+;
+
+@       IN  NS  ns.sub.victim-rucds.dnssec-ruc-ms.xyz.
+ns      IN  A   192.168.45.70
+
+@       IN  A   10.0.1.2
+
+sub.victim-rucds.dnssec-ruc-ms.xyz. IN DNSKEY 257 3 8 AwEAAZuBylLFQK2rH0te4iBFPgjS4ApxQNdmc8yhbkQ5W8y6BLe8Ffez XgbZDoPHzI93JXX4pwQH50CjmTjfpbx5H2EYY0QM05xnti2dtxISbg3A cGecli4C/mZg8VgS22HTJkq3iIDq7lOqB4h5l2XCFKKSj5DOj5Q57WBN DMxfqPdE/GcONtcQ+2g24zHCqSXdTsvMlvpZeA3/e7nJ1wzSMrYIlSZZ +RH6ScyHi0hMmQgS/lODMTRJwNIdypjSBpmO8CjCv9bUP6TVRyPfu9rO tHIgVLNOzQqI8rMNvUgAZC/+ODm+BYq8sPXAude2y8fIVqFW/svHSBPT mccu5zpgYa8=
+sub.victim-rucds.dnssec-ruc-ms.xyz. IN DNSKEY 256 3 8 AwEAAapLrWJZlr3mJx7ix8bCsYN8t7pscNh5p7ne+v4oE7NcLd7aZDDt X2ur/LwWyfsaXZMoePYRExxFjSoAFjzVg2uqq1TpIjhYqAuKCwe+Zxw+ f/ejpZyBYUPi0qjQnp2DwAXF/hs+0j7Gs8RSo7EeQkmf40bR+xylFQnX +cU4T/3kmOKmM8tyUSRFUCpraK+Urr72H2suaJC+9XbLHt6BubnLICDY W0gZo2DKBUKR6VHkFEcO+DH6mHttqeWknWr69kCn+n+9i04P0QfLZlJc lcZ2FpIl0LDGaU3JAB87IVWA17hI1kT99aQQ5DhQ0MiGSjZWzIT03fUp 9PpZ7Qd7JOU=

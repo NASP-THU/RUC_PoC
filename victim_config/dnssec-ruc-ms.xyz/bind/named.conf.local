@@ -1,0 +1,62 @@
+//
+// Do any local configuration here
+//
+
+zone "test.dnssec-ruc-ms.xyz" {
+    type master;
+    file "/etc/bind/db.test.dnssec-ruc-ms.xyz.signed";
+    key-directory "/etc/bind/dnssec_keys";
+};
+
+zone "victim-rucdnskey.dnssec-ruc-ms.xyz" {
+    type master;
+    file "/etc/bind/db.victim-rucdnskey.dnssec-ruc-ms.xyz.signed";
+    key-directory "/etc/bind/dnssec_keys";
+};
+
+zone "victim-rucds.dnssec-ruc-ms.xyz" {
+    type master;
+    file "/etc/bind/db.victim-rucds.dnssec-ruc-ms.xyz.signed";
+    key-directory "/etc/bind/dnssec_keys";
+};
+
+zone "sub.victim-rucds.dnssec-ruc-ms.xyz" {
+    type master;
+    file "/etc/bind/db.sub.victim-rucds.dnssec-ruc-ms.xyz.signed";
+    key-directory "/etc/bind/dnssec_keys";
+};
+
+zone "victim-rucnsip.dnssec-ruc-ms.xyz" {
+    type master;
+    file "/etc/bind/db.victim-rucnsip.dnssec-ruc-ms.xyz.signed";
+    key-directory "/etc/bind/dnssec_keys";
+};
+
+zone "rucnsip.dnssec-ruc-ms.xyz" {
+    type master;
+    file "/etc/bind/db.rucnsip.dnssec-ruc-ms.xyz.signed";
+    key-directory "/etc/bind/dnssec_keys";
+};
+
+zone "victim-rucedns0.dnssec-ruc-ms.xyz" {
+    type master;
+    file "/etc/bind/db.victim-rucedns0.dnssec-ruc-ms.xyz.signed";
+    key-directory "/etc/bind/dnssec_keys";
+};
+
+zone "valid.dnsrfcllm.xyz" {
+    type master;
+    file "/etc/bind/db.valid.dnsrfcllm.xyz.signed";
+    key-directory "/etc/bind/dnssec_keys";
+};
+
+zone "bogus.dnsrfcllm.xyz" {
+    type master;
+    file "/etc/bind/db.bogus.dnsrfcllm.xyz.signed";
+    key-directory "/etc/bind/dnssec_keys";
+};
+
+zone "dnssec.dnsrfcllm.xyz" {
+    type master;
+    file "/etc/bind/db.dnssec.dnsrfcllm.xyz";
+};

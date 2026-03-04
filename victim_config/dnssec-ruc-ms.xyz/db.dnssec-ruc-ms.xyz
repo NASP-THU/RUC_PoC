@@ -1,0 +1,41 @@
+$ORIGIN     dnssec-ruc-ms.xyz.
+$TTL        3600
+
+@           SOA     ns.dnssec-ruc-ms.xyz.      admin.dnssec-ruc-ms.xyz. (
+                    2025052901; serial
+                    3600      ; refresh
+                    1800      ; retry
+                    1209600   ; expire after 2 weeks
+                    600 )     ; minimum TTL of 600 secs
+;
+
+; apex NS delegation
+@           IN  NS      grannbo.ns.cloudflare.com.
+@           IN  NS      koa.ns.cloudflare.com.
+
+; domain for the basic test
+test                IN  NS      ns.test.dnssec-ruc-ms.xyz.
+test                IN  DS      59596 8 2 9E1D7D59D3C3A6D10C64B32B17766423C8BE93A59311F8BA9B65EBBF C749435F
+ns.test             IN  A       192.168.45.70
+
+; domains for RUC_DNSKEY
+victim-rucdnskey    IN  NS      ns.rucdnskey.dnssec-ruc-ms.xyz.
+victim-rucdnskey    IN  DS      42904 8 2 75CF1C45304A538A0A98C6AEFDCBB0D6A0596B745CB6094C6A704FA7 7414FBC0
+ns.rucdnskey        IN  A       192.168.45.70
+
+; domains for RUC_DS
+victim-rucds        IN  NS      ns.rucds.dnssec-ruc-ms.xyz.
+victim-rucds        IN  DS      35014 8 2 140E9EEB35616FF27D5D7E48CD90B97828E4976240F83B43E347667B 6F663A42
+ns.rucds            IN  A       192.168.45.70
+
+; domains for RUC_NSIP
+victim-rucnsip      IN  NS      ns.rucnsip.dnssec-ruc-ms.xyz.
+victim-rucnsip      IN  DS      52960 8 2 D5206E4413215F29A33FAC4E63EFDB4C09DDBCCB9CE1D4B5204DA4C8 E2BAA739
+rucnsip             IN  NS      ns1.rucnsip.dnssec-ruc-ms.xyz.
+rucnsip             IN  DS      23851 8 2 85C98D2EB1254913AE15EDE4D9A48F5D642A6BA1F73CB9A9AAF06EDD 3BFD4685
+ns1.rucnsip         IN  A       192.168.45.70
+
+; domains for RUC_EDNS0
+victim-rucedns0     IN  NS      ns.rucedns0.dnssec-ruc-ms.xyz.
+victim-rucedns0     IN  DS      25261 8 2 44FB1AC8F24AB1D2B65644D2CDE3D0ACEAF14CC54980CFFD282D6334 1465FB2E
+ns.rucedns0         IN  A       192.168.45.70

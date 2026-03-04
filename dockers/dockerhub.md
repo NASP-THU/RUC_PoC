@@ -1,5 +1,5 @@
 # Ready-made Docker Images from DockerHub
-We provide ready-made docker images for tested DNS resolver software, victim domain's nameserver and the RUC attacker. Use the following commands to pull the images from DockerHub and tag them for local use.
+We provide ready-made Docker images for the tested DNS resolvers, victim domain's nameserver and the RUC attacker. Use the following commands to pull the images from DockerHub and tag them for local use.
 
 ## DNS resolver software
 ```bash
@@ -17,9 +17,16 @@ docker tag ohmyzshhh/ruc_poc:technitium13.1 ruc-technitium:13.1
 ```
 
 ## Victim domain's nameserver
+### Linux-based resolvers
 ```bash
 docker pull ohmyzshhh/ruc_poc:nameserver
 docker tag ohmyzshhh/ruc_poc:nameserver nameserver:ruc
+```
+
+### Microsoft DNS resolver
+```bash
+docker pull ohmyzshhh/ruc_poc:nameserver-ms
+docker tag ohmyzshhh/ruc_poc:nameserver-ms nameserver:ruc-ms
 ```
 
 ## RUC attacker

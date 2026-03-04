@@ -1,35 +1,37 @@
 import sys
 import json
 import time
+import argparse
 import datetime
-from api import BASE_FOLDER
 from dnslib import *
 from dnslib.server import *
 
-APEX='dnssec-ruc.xyz.'
-TARGET='victim-rucedns0.'+APEX
-NAMESERVER_THREADS=1000
-
-class NSNameserver:
-    def __init__(self):
-        with open(f'{BASE_FOLDER}/config.json') as f:
+class RUCEDNS0_Nameserver:
+    def __init__(self,apex_zone):
+        with open(f'config_subdomains.json') as f:
             config_dict=json.load(f)
-        self.timestamp=config_dict[TARGET]['TIMESTAMP']
-        self.nsip=config_dict[TARGET]['NSIP']
-        self.good_ttl=config_dict[TARGET]['GOOD_TTL']
-        self.bad_ttl=config_dict[TARGET]['BAD_TTL']
-        self.sig_inc_time=config_dict[TARGET]['SIGTIME']['SIG_INC']
-        self.sig_exp_time=config_dict[TARGET]['SIGTIME']['SIG_EXP']
-        self.rrsig_soa=config_dict[TARGET]['RRSIG_SOA']
-        self.rrsig_nsec=config_dict[TARGET]['RRSIG_NSEC']
-        self.rrsig_zsk=config_dict[TARGET]['ZSK']['RRSIG']
-        self.rrsig_ksk=config_dict[TARGET]['KSK']['RRSIG']
-        self.zsk=config_dict[TARGET]['ZSK']['KEY']
-        self.ksk=config_dict[TARGET]['KSK']['KEY']
-        self.tag_zsk=config_dict[TARGET]['ZSK']['TAG']
-        self.tag_ksk=config_dict[TARGET]['KSK']['TAG']
-        self.alg_zsk=config_dict[TARGET]['ZSK']['ALG']
-        self.alg_ksk=config_dict[TARGET]['KSK']['ALG']
+
+        self.target=config_dict['subdomains']['ruc_edns0']+'.'+apex_zone
+        self.apex_zone=apex_zone
+
+        self.timestamp=config_dict[self.target]['TIMESTAMP']
+        self.nsip=config_dict[self.target]['NSIP']
+        self.good_ttl=config_dict[self.target]['GOOD_TTL']
+        self.bad_ttl=config_dict[self.target]['BAD_TTL']
+        self.sig_inc_time=config_dict[self.target]['SIGTIME']['SIG_INC']
+        self.sig_exp_time=config_dict[self.target]['SIGTIME']['SIG_EXP']
+        self.rrsig_soa=config_dict[self.target]['RRSIG_SOA']
+        self.rrsig_nsec=config_dict[self.target]['RRSIG_NSEC']
+        self.rrsig_zsk=config_dict[self.target]['ZSK']['RRSIG']
+        self.rrsig_ksk=config_dict[self.target]['KSK']['RRSIG']
+        self.zsk=config_dict[self.target]['ZSK']['KEY']
+        self.ksk=config_dict[self.target]['KSK']['KEY']
+        self.tag_zsk=config_dict[self.target]['ZSK']['TAG']
+        self.tag_ksk=config_dict[self.target]['KSK']['TAG']
+        self.alg_zsk=config_dict[self.target]['ZSK']['ALG']
+        self.alg_ksk=config_dict[self.target]['KSK']['ALG']
+
+        self.nameserver_threads=config_dict['nameserver_threads']
         
     def resolve(self,request,handler):
         reply=request.reply()
@@ -38,7 +40,7 @@ class NSNameserver:
         src_ip=handler.client_address[0]
         try:
             domain=qname.lower()
-            if domain.endswith(TARGET):
+            if domain.endswith(self.target):
                 if qtype==48:
                     zsk_rr=RR(rname=qname,rtype=48,ttl=self.good_ttl,rdata=DNSKEY(flags=256,protocol=3,algorithm=8,key=base64.b64decode(self.zsk)))
                     ksk_rr=RR(rname=qname,rtype=48,ttl=self.good_ttl,rdata=DNSKEY(flags=257,protocol=3,algorithm=8,key=base64.b64decode(self.ksk)))
@@ -46,7 +48,7 @@ class NSNameserver:
                                                                                     sig_exp=self.sig_exp_time,
                                                                                     sig_inc=self.sig_inc_time,
                                                                                     key_tag=self.tag_ksk,
-                                                                                    name=TARGET,
+                                                                                    name=self.target,
                                                                                     sig=base64.b64decode(self.rrsig_ksk)))
                     reply.add_answer(zsk_rr)
                     reply.add_answer(ksk_rr)
@@ -57,19 +59,19 @@ class NSNameserver:
                     reply.header.rcode=getattr(RCODE,'NOERROR')
 
                 else:
-                    rr_soa=RR(rname=TARGET,rtype=6,ttl=self.good_ttl,rdata=SOA("ns.rucedns0."+APEX,"admin."+APEX,(int(self.timestamp+'01'),3600,1800,129600,600)))
-                    rrsig_soa=RR(rname=TARGET,rtype=46,ttl=self.good_ttl,rdata=RRSIG(covered=6,algorithm=self.alg_zsk,labels=3,orig_ttl=self.good_ttl,
+                    rr_soa=RR(rname=self.target,rtype=6,ttl=self.good_ttl,rdata=SOA("ns.rucedns0."+self.apex_zone,"admin."+self.apex_zone,(int(self.timestamp+'01'),3600,1800,129600,600)))
+                    rrsig_soa=RR(rname=self.target,rtype=46,ttl=self.good_ttl,rdata=RRSIG(covered=6,algorithm=self.alg_zsk,labels=3,orig_ttl=self.good_ttl,
                                                                                     sig_exp=self.sig_exp_time,
                                                                                     sig_inc=self.sig_inc_time,
                                                                                     key_tag=self.tag_zsk,
-                                                                                    name=TARGET,
+                                                                                    name=self.target,
                                                                                     sig=base64.b64decode(self.rrsig_soa)))
-                    rr_nsec=RR(rname=TARGET,rtype=47,ttl=self.good_ttl,rdata=NSEC(label=TARGET,rrlist=['A','NS','SOA','RRSIG','NSEC','DNSKEY']))
-                    rrsig_nsec=RR(rname=TARGET,rtype=46,ttl=self.good_ttl,rdata=RRSIG(covered=47,algorithm=self.alg_zsk,labels=3,orig_ttl=self.good_ttl,
+                    rr_nsec=RR(rname=self.target,rtype=47,ttl=self.good_ttl,rdata=NSEC(label=self.target,rrlist=['A','NS','SOA','RRSIG','NSEC','DNSKEY']))
+                    rrsig_nsec=RR(rname=self.target,rtype=46,ttl=self.good_ttl,rdata=RRSIG(covered=47,algorithm=self.alg_zsk,labels=3,orig_ttl=self.good_ttl,
                                                                                     sig_exp=self.sig_exp_time,
                                                                                     sig_inc=self.sig_inc_time,
                                                                                     key_tag=self.tag_zsk,
-                                                                                    name=TARGET,
+                                                                                    name=self.target,
                                                                                     sig=base64.b64decode(self.rrsig_nsec)))
                     reply.add_auth(rr_soa)
                     reply.add_auth(rrsig_soa)
@@ -81,7 +83,7 @@ class NSNameserver:
                     # reply.add_ar(opt_record)
 
                     # To align with the "additional count" in the response header, add an arbitrary glue record
-                    rr_a=RR(rname='ns.'+TARGET,rtype=1,ttl=self.good_ttl,rdata=A(self.nsip))
+                    rr_a=RR(rname='ns.'+self.target,rtype=1,ttl=self.good_ttl,rdata=A(self.nsip))
                     reply.add_ar(rr_a)
                     
                     reply.header.rcode=getattr(RCODE,'NXDOMAIN')
@@ -108,11 +110,11 @@ class NSNameserver:
 
             return reply
     
-def main():
-    nameserver=NSNameserver()
+def main(apex_zone):
+    nameserver=RUCEDNS0_Nameserver(apex_zone)
     
     dns_server=DNSServer(nameserver,port=53,address='0.0.0.0')
-    for _ in range(NAMESERVER_THREADS):
+    for _ in range(nameserver.nameserver_threads):
         dns_server.start_thread()
     
     try:
@@ -122,4 +124,8 @@ def main():
         sys.exit(0)
 
 if __name__=='__main__':
-    main()
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--apex_zone')
+    args=parser.parse_args()
+
+    main(args.apex_zone)

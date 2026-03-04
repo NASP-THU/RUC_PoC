@@ -1,0 +1,110 @@
+{
+    "victim-rucdnskey.dnssec-ruc-ms.xyz.": {
+        "TIMESTAMP": "20260101",
+        "NSIP": "192.168.45.70",
+        "GOOD_TTL": 10,
+        "BAD_TTL": 86400,
+        "SIGTIME": {
+            "SIG_INC": 1767276247,
+            "SIG_EXP": 1769868247
+        },
+        "ZSK": {
+            "KEY": "AwEAAbAbIH8J/WYpbUgRA76LkTowkhOlG13VrWV2r0r9iASMRhtRzTgW FI54CqXZEzxAJbP5car4MC8JytA5QQ15y9+00PqGIaO4Pk0ZEnOpJfUp MVWa4WveTHFJ2LUPVav/Veo+qLpyXUHEURsGAZRAcmsfagTlLbc8kGco dNlMlMBnjf5Jds4DahSDWRs8soOG1k0chuJHTj5h0TuhuVbxa2spvGUe 37RNToZ99EhnGRpZx82+3vexH2lRaOCnT96Vp9C/sWShcGA18M6BUJhB QWRZQwKLwkBuGpJkhAMQCW/22N/DtPfRS2ES6U6J4tBeYjOKxS+GotB5 DBZwIPD8Jr8=",
+            "RRSIG": "iR9+3nDBTa/yIWlrCIT7xC0vhzMro2Ob0iqrXtBpQxFww499jrn6ohR6 KwlVOcW8awLEdzByEIMNlLdBkfnFV99APcS8Pc8T8nrEmP2VUoEntMBR OQZiYuygeXYpEW6+Pm5ouXsJh68QFq9Z/w6msB26oE6foSBRRrIITo9h esPc9G/QQ317HY+hqCVYwgei7ruZ3E6jaNRAiC+ougEq1jnSKFnJtuKm GEtaquhq6N9ht63VyGa8SOOhwwpcWEQIbWDTlmatLdEx9JwZGEONRtw9 UtgI/ueel1bCV3SznnQJnvwPJ5RJLg/YOCcHtGjEqzvnxREFVDZTlDvW guJJXw==",
+            "TAG": 39511,
+            "ALG": 8
+        },
+        "KSK": {
+            "KEY": "AwEAAY+XRQ7nsBQa1VuJMaDjJs0C3BRdUj9/pJ1gt86c58oJwgJbDxsD +BESA8Q26Vjq1uurLl4mPGmiHHRhLkwlwhWlyMmh7XEOR01qrKIVKVTO JeQM2btA33UfDztZUYshlE7Qh3NpPwMazH6Wz3NFptSOtrzg2ewXAQJz Z/YR2X1pW9lsWQwf0sb/dVkeAQSh2drsv6Q9U+ia9Vmx4dMoirLqNJMy UtuPRP3RTQ3VEaZQlY4xlR/5M6vo8frdC6ZU8fCkMNFgWUv94m2grN5j T5qiCwnO2npiywlh0WzTIKyhphGgsVxG9sloyqwr+ohehQ7OhVtHK3K8 sNzy/zUYtWE=",
+            "RRSIG": "WCCP1fDO0+xWmcW3a3k1k8jwlACe771u/8G9dHOayIu5XyMm+ibLOGTf e2WdS7QRfkUgV+yu9CgzZ/6mmSRLKbnVCucQ1w1RcFsvDNXtOd299ysN HMEFTwm26mr/tClaue9QF+v2EG5XRAFqkG8vErUy/WP1gtNVcreR8p8v 4fc7ej/RIii+T3UKRa1upX5KnULmX+TIeWQpfYqHfJb7MidEAkQBD3Jg MD0qEwxvpeMOk7sdoPa6/OGVU8gbXKhG6QP+ltsNvJTYVLKOMRKkIvRV NAN2NTBp7rqyx5I8mRB0MsS5QxjNjk0PXIr0JaRrpBheyQqmTaCAfu/X WZXKWw==",
+            "TAG": 42904,
+            "ALG": 8
+        }
+    },
+    "victim-rucds.dnssec-ruc-ms.xyz.": {
+        "TIMESTAMP": "20260101",
+        "NSIP": "192.168.45.70",
+        "GOOD_TTL": 10,
+        "BAD_TTL": 86400,
+        "SIGTIME": {
+            "SIG_INC": 1767276247,
+            "SIG_EXP": 1769868247
+        },
+        "ZSK": {
+            "KEY": "AwEAAZdoCU1391Dt3jxJSIz5qs3lCvbpHBL1HlTRM03p8njn6qluOF5u VQyIHiHnRLa46Lal94nXo8B1l2+NBTfV1UNCq9PTFwasIQf4+3HywlbN vB6DYZxd1vOPQ9FCmkCw2hQOGLQ2XQyYVETUs22m7A6XeETUb25J8LKc rMmr+vfJJsz9mq6eiNRU5aK2ypGNtPoNCR2ynV5hr6kN2J9/2oEPozvZ GY3mQwxABlRu3u11dkTR9tYf4Rt5Gbl3d9NEZdNGLa3rv8TJDsV/kAdE SAo/HwDRfebhNLmi7rXLDLEqXRRHqTpK1nUsv45XHER4W8b3q5X3dlOY L0rKJCQKUyM=",
+            "RRSIG": "WcZuGbz5o3l0nPgYavBTDLgaNACS2/PIKtidvOtM4qGOzcmMJA2pznk6 vfFxqele8VrrYuB5OLepxGa1Din35doeT06rxPdtZVZxlC/ni/u78G2f 5VgCgVvk90Svbcdg904ZD1AFgQGzs3fkXYAbf82lhRVXoVbN6O4JBUUx x0N5c9k5Tl/7WJ1+vb21W0fz5cJPEKPBPC4JbRwkTETc9jY/vhGICOBW 5Mof0LiULZb4YYwNDEo8ICLuiEeujgZO6PUdupRhi2T/2aYW0B5Ec6QZ iQe8c6ta6+T/PiJ7HI5q+twiX23h5J/ENfpAFusc9ZTIJAX++X7FK9CH 7Sm3iw==",
+            "TAG": 2628,
+            "ALG": 8
+        },
+        "KSK": {
+            "KEY": "AwEAAbQzvM0Y6P2x+0TkmiKom1uWfZsQ3GVwJ9CmBRwG48L+lzCniDg9 /D8v7Is7WLlDninxcglwFVhaNni67zed/pj60T7oTtPrM02t0xMOEb3v ERumN/1oqvfINA9GABup/vZYx10Pei5/wDgJKl0tUQCu5MXeOa4IQm6F blONg27dE4SprysbqL0D+WDBJ3ossU03o8sNJw0uXIMywFloelBjSCdH vniku3hYu7zJMq45anbUPzWNc+CzyAu+hpUYQIhKRnmPxElysyvVIQbD Xfi/Qn31+05n6OoM8lf1kKIfd40ZwcjNlaaQC6m6UDXKpV6dV3Qpd/FJ mLgX9BvSf3k=",
+            "RRSIG": "EY8w4q8Ybogc0N8QqRtRah3GkaBlxKN6i7oCXi6njN3z8XDcJcdDLukv jJPYrGG3aJ6dNONxVfn+woyQ13p0R3A2gaX0nTdJ5CDKe8raHRlwzE04 wEBLzwZ4mv6KtgPbeZI4UtKlcNcVYnHLPMY9ju0X1ebHsykC2bIpdKdr 4KZ2Vl7Mo71xRiV+Yei1C5qNgg92CAgBK+IFgBBu9oKjAUu/R2Odndyx 6aMxfXubyEqjiT64gn16y3+gVbyQq2/7t0vdURsM2aaFGxn9a++tBkWn mEeezgJE4/AcMW++C6WTL5hjbd6J8SnB71Xz3jLrQ3imAIINBEi6KA7A LLpMtg==",
+            "TAG": 35014,
+            "ALG": 8
+        },
+        "SUB_DS": {
+            "DIGEST": "AA21F1DB4F3AC344658B58C551C103497D766034FAF5EB1B0A84AF9B00A138FA",
+            "TAG": 48319,
+            "ALG": 8,
+            "HASH": 2,
+            "RRSIG": "f2yiMKKd87r2AymsKnfezBJ69vBFsmZjBMTix9baW1ckdPhSY/cQ1xtd Y7GjJTy88CE7Lx7mPoxuXY3WJp7vZKVNhHU4gXrCSQSLhTSXyuyqyCXy dQ4zmF4o/zw7AQ02+uEGLZhzV33qIdE0RU0pPwXmMQyuDFwNb40BYiEv VAOFoHRw8okmYdpti09lQj4OCCp81ArnI1S4rGJ8XCYmgGlrNTTl0C7F UZklFmMzBhtwHVnL31z5yqQjef0/whRlIZ2Wid76JJ4SVRuQzmgsezVD pTiQM3lC2EkMLbwatdd5P1IV2CgXeNniU8rAiN57E2J3qB14z3yRTNfO xaRJUg=="
+        }
+    },
+    "rucnsip.dnssec-ruc-ms.xyz.": {
+        "TIMESTAMP": "20260101",
+        "NSIP": "192.168.45.70",
+        "NSIP_BAD": "172.22.2.2",
+        "GOOD_TTL": 10,
+        "BAD_TTL": 86400,
+        "SIGTIME": {
+            "SIG_INC": 1767276247,
+            "SIG_EXP": 1769868247
+        },
+        "ZSK": {
+            "KEY": "AwEAAc+SOoixr4PwRZERGCsKHfTh4LdfFO10mR5JQLuyRvFNnJ9JlFTS eVjckcLDNua5Axr+LopXpDl+aRxy/vbxUHMFc37PAz5iSROCFlH8y+gG y+wksTDM1/+yqcpGTOIBmkBEOytcC8CuaDJSr842fffWpoigSxE6B6/3 shC7bZ6/CsokGFI4ZOPRF0EJRr7EkNXot0P3zWyQ25Yu9TWH+D2ptEHn RwNKZ4TRrc61nLbDDrQ+cmV83TQP5RPTKdmrVqc+jSHWV2EO0dVJJavG 2S+XkfGcxQCJ14/6g8jKeelgKAmPsmsvTxQqCCcO/oJLfZi4nj4W8V2/ cEtVbTwNJm8=",
+            "RRSIG": "i5wh/+OqoK2rP3DRQapcMfUWkwa4zKuj3/EKrn4r97AINvxKzDeW2t5D GZueD1BjrEeu9Yst5caXeZ8cQDMtGkeuqoV80+x3iwhu76Ko+vhesjP9 g9F0PJECcfj6HTg6B+TChGV4jGwgxBRbuSFsIbulMfAuiG5lN/bROfGR /D1+3h1liXlTFu3e48xeBx7AyP/YYSVRRQ9IWZ1kFKTZfXb3fy1apfl9 njMZ5jzucwhZeXRHMq/cemPZLF4Wlv8nsOPtd157o/k7bJEdx+K3ObZH 14PnAYS6abiziNGNxpLifbttVXPcVbrePr5Ud9w9SHSjIBENx79IrDZE jYTtKA==",
+            "TAG": 43276,
+            "ALG": 8
+        },
+        "KSK": {
+            "KEY": "AwEAAaypXVy5YAmF0k1ecu3ILZZWZriygIdp3X2BA9fojBjVkNcmm355 KMj9DZa79RrN9LAJOlOdRBZ3wTuZ7uQuuGyEHYHtWjShg/rF3z7RcM2m pgqoO5l6ilxpYZpZCpUsyRQYwzSCdViC4KJnWPWVoXBWuqKBZ+VvgD/b jdwtpwuLnEuZB/kyhcU1lfAg6C0ju4fL+fG0quDM54DAea65J+RL/g2u c8gA7iOKMpOpNvkMxjFD0FAK4ycfqscR2T6KCa+ynKVjEhoAIUfsISJV lFI4gHkOfjYH5g/3jwIYBiXQeqEhP8haT24p9MO9g8WcYkgQ3YoGTxEF 6Cx0Wf4bH8c=",
+            "RRSIG": "MvEJRoUMn1mFdiJmCGwoVCmcPH0+LIk+k8QwDac2fBtoE9cx+++OvWT1 d8y3bjhylKZen63W0Q/DcMMaClFvt3k4qnoSRuROrQ3mhp4VIEZhLah+ 6THGdbtVzz77VXCGWijaLx0aCtmndiVr42Jt3SIeeDaU8Xrr//6InJaI I7YqyWNRe8naolG25eP3VgtAI01qD5RmFlEu19bkDuJ5OjAu5xrVRafv bNJaOF+Dk5b+dvPakf0rHuivlhvkbFWxAUSwxdprmWJYPzzJNjNpnb5V B7B2IiQIUKwhVD11Ud2SZ5I5CKCpnS5rmT396kvoAq3VJtM3emRprQxF S96R5w==",
+            "TAG": 23851,
+            "ALG": 8
+        }
+    },
+    "victim-rucedns0.dnssec-ruc-ms.xyz.": {
+        "TIMESTAMP": "20260101",
+        "NSIP": "192.168.45.70",
+        "GOOD_TTL": 10,
+        "BAD_TTL": 86400,
+        "SIGTIME": {
+            "SIG_INC": 1767276247,
+            "SIG_EXP": 1769868247
+        },
+        "ZSK": {
+            "KEY": "AwEAAdwTpzplYCyY9VNIkUDikQaKQbNKVEdpIUohyBJPCbbDTbL6fMTJ 4EnvUa1StrP0j0e661+6lIay5hW6OSlxePt/vPQzx7zHWvvy71gml2FY LjXnpFsFx73/l09H4+vJftNetn10BYpbHSMA8ZarBtZnSA78rGBy28d+ 1EVsiMLNo1i4V2JDJ74lNHTYlIgrCleEG2dJ4o/6FtWqpwMBUSW/GDOE OwQGfYR4Q7iZXfSdo6jlw5Yd5gnJCcN3HdYpIxS7rmJdvXKocKZIaibb mKxV98QvAl2fM1ogKESOpZ6GCVq3VoqVxwDX7n1vz98+DFG923MdRRMf Tj+GeiIwURM=",
+            "RRSIG": "k8S/BinAGrw2P30LI/EUJigTJIDflnq311XZsA17IAN5OM52M7TbmEsn AdF+1fZJUrQqFlhZeJzfYLV5xWAIT3oazVe9P/g68v408w6agWsMMW9d UhNKdoeGFOeoDgG1Dj1KzgZCrhe53ntDGjU8Jlk2tAybojjdn9QfY6/9 MuA58uVdaApUOUpHK12PmgCuSwRzKUT1ISdvMcWHSI/k1+c+iOGpw1KT i6BYdEO84fhXlLVjDroEpNWw7tOBYOzqKTQjWL4XMevZa0in6AgyPw6K Ptn9WwKTonww9jmRIzek3HTAFxvIPVLqsSda7w7Wr9iUqMs2YwfH5d7J DibdQg==",
+            "TAG": 4758,
+            "ALG": 8
+        },
+        "KSK": {
+            "KEY": "AwEAAbM/AuHAXjmlc7UHkreFyD+DKXUrk/xpdhZ7vTAqgfoja3404JC8 LNswn1qY0E6C/Z6S8i6ZFZ+VJw1GbIUcVafuN6Mr8iMZJ7sclqbb8YxA lhtZEIvA1HXkXHMEFXriZAGxV0grshBv1NjoV6ifxXfPmyVqxbUp/TzO Xmba3qf3DaH8sRTCOXXVbM71VmavQT5IXN/Kif7xIoyjC37Czlh6mApc 54UOPNRzosJrR4w0j0Bs6ImWThaofmtEO2AO4qbOQXuSftQTmvZitQ4G cnVAyYWChN3NCX6gQ+TSaGLMJDZwaKEQDV0smFF+1GjR0TTldk5flwak 9F2jHE/w6W0=",
+            "RRSIG": "W1un7jqgxAN5fyEOfb+5WILS155x+I34GGL31HS7rwZ/Cg8F48F5H1Ax yB5ImonPCHjOjd84E9jOt7gFJ8jxVAVcT2OButw7+qOSp5JIyfkefEyn rYqJmISUrE3alXZwvKpTDyX4p0i0k6gK7l01kj88sk+FEnzdG/BHCxnk vghOznK4QFm/Ov9Uvu6MiLl0TFROUXX2Y5XHryuyhCt8wViZ+rFIhPtU ft7r7PsOb6QzINWuq/5f64UgnDiz+amvCAvoQu6KpnJFYI88Avj6R2eQ cqCPuLhSVqfqzm5ILTyF9Aol9ha1zP3Qv7G57yrrrtqqir6fcwRevZWl YnUe6w==",
+            "TAG": 25261,
+            "ALG": 8
+        },
+        "RRSIG_SOA": "C0MhHsjydNKiZeSrSS1Blams6kqM/7H+hkI81A0Fr9oYQGHd7X+/4L9l Hr3aKTotheZeQVRoqLb/f+OmpJDHSkExK0R7Xl+h9naQhPogGVHSlsKy oLoDMpJiU3eGfNbA6BwxMWLhPF6vldD8f2cIWRwYcN8lo4Wl+l2iKVCF lay01gcYQK4UkfH35njWdAzsCHU1m5c7FwqZYoAjN81vOaYs8xpIznmF Iah7e51VGuUkBA9Y2+lDQYrg1t2tNMwKwWgzdnnlvXlfxBdCDC505tHT u6Cs99b/YF0uxp0+RavC6RW4TYF6Cicfmux/MpkflbOx1/WEWV2AnXVj S7xyHg==",
+        "RRSIG_NSEC": "VgkOwyf/AIcThQP9QEEYbreOSwAvB6mVyTr8PNpIfxXlPrQ+QmEHbow0 uSFHFucTojFmBGZDLftpZfXetwcPy3QyqPTu78xvulSb5Fe+pytPgL1U Rx/NIC1nbz6gPXzDeE9j4SwQhb/KYBENxHMoW85y9kkioygPC2NrU3Ir GrlX4psMCdEFts+hycNXDaNqq9dtk7ZcO0X5p4yEXEYrOCT15IoykA5W cBoEr7Q9SdvaRcMnfXyBMkN/4ferRGdiaMMJm86qvXnc2DnLnLdyAN0e XQgjs8V9KZV2xcXwJJiK+tFnXs3reanpo6SXYlZZUeD49rd/aTTwPgnA sP54LA=="
+    },
+    "nameserver_threads": 1000,
+    "subdomains": {
+        "test": "test",
+        "ruc_dnskey": "victim-rucdnskey",
+        "ruc_ds": "sub.victim-rucds",
+        "ruc_ds_apex": "victim-rucds",
+        "ruc_nsip": "victim-rucnsip",
+        "ruc_nsip_nsdom": "rucnsip",
+        "ruc_edns0": "victim-rucedns0"
+    }
+}

@@ -4,10 +4,7 @@ import time
 import requests
 import argparse
 from pathlib import Path
-
 from utils import *
-
-TEST_LOG_DIR='ruc_test_result'
 
 class RUCVulnTest:
     def __init__(self,resolver_ip,ruc_variant,with_sig):
@@ -15,13 +12,17 @@ class RUCVulnTest:
         self.ruc_variant=ruc_variant
         self.with_sig=with_sig
 
+        if self.resolver_ip=='127.0.0.1':
+            self.resolver_os='windows'
+        else:
+            self.resolver_os='linux'
+        
         with open(Path(os.getcwd()) / 'config.json') as f:
             config_dict=json.load(f)
 
         # victim domain's nameserver (for API control)
-        self.victim_nameserver=config_dict['victim_nameserver']
-        if self.resolver_ip=='127.0.0.1':   
-            self.victim_nameserver['ip']='47.251.171.85'   # use our remote authoritative nameserver instead of the local container to test Microsoft DNS
+        self.victim_nameserver=config_dict['nsip'][self.resolver_os]['good']
+        self.attack_api=config_dict['attack_api']
 
         # attack settings (query interval and rounds)
         self.inject_interval=config_dict['inject']['interval']
@@ -31,14 +32,12 @@ class RUCVulnTest:
         self.result_folder=config_dict['result_folder']
 
         # victim domain
-        self.victim_apex=config_dict['victim_apex']
-        if self.resolver_ip=='127.0.0.1':   
-            self.victim_apex='dnssec-ruc-ms.xyz'   # use a dedicated victim zone under our control to test Microsoft DNS
-        self.victim_domain=config_dict['victim_subdomains'][self.ruc_variant]+'.'+self.victim_apex
+        self.victim_apex=config_dict['victim_apex'][self.resolver_os]
+        self.victim_domain=config_dict['subdomains'][self.ruc_variant]+'.'+self.victim_apex
         if self.ruc_variant=='ruc_ds':
-            self.victim_domain_apex=config_dict['victim_subdomains']['ruc_ds_apex']+'.'+self.victim_apex
+            self.victim_domain_apex=config_dict['subdomains']['ruc_ds_apex']+'.'+self.victim_apex
         if self.ruc_variant=='ruc_nsip':
-            self.victim_domain_nsdom=config_dict['victim_subdomains']['ruc_nsip_nsdom']+'.'+self.victim_apex
+            self.victim_domain_nsdom=config_dict['subdomains']['ruc_nsip_nsdom']+'.'+self.victim_apex
 
         # bits in DNSSEC troubleshooting queries
         self.cd=config_dict['troubleshooting_query']['cd']
@@ -46,16 +45,15 @@ class RUCVulnTest:
         self.do=config_dict['troubleshooting_query']['do']
         self.opt=config_dict['troubleshooting_query']['opt']
 
+        self.test_log_dir=config_dict['test_log_dir']
+    
     def config_authns(self,mode):
-        attack_api_ip=self.victim_nameserver['ip']
-        attack_api_port=self.victim_nameserver['port']
-        attack_api_url=self.victim_nameserver['url']
-        attack_api_username=self.victim_nameserver['username']
-        attack_api_password=self.victim_nameserver['password']
+        attack_api_ip=self.victim_nameserver
+        attack_api_port=self.attack_api['port']
+        attack_api_url=self.attack_api['url']
         response=requests.post(
             f"http://{attack_api_ip}:{attack_api_port}/{attack_api_url}",
-            json={'attack':self.ruc_variant,'mode':mode,'with_sig':self.with_sig},
-            auth=(attack_api_username,attack_api_password),
+            json={'attack':self.ruc_variant,'mode':mode,'with_sig':self.with_sig}
         )
         return json.loads(response.text)
 
@@ -182,12 +180,12 @@ def test_ruc_resolver(resolver_ip,ruc_variant,with_sig):
         else:
             print(f'\n[-] The tested resolver {resolver} is not vulnerable to {ruc_variant}.\n')
     
-    if not os.path.exists(TEST_LOG_DIR):
-        os.makedirs(TEST_LOG_DIR)
+    if not os.path.exists(ruc_vuln_test.test_log_dir):
+        os.makedirs(ruc_vuln_test.test_log_dir)
     if resolver_ip!='127.0.0.1':
-        test_log_file=Path(TEST_LOG_DIR) / 'log_ruc_test.csv'
+        test_log_file=Path(ruc_vuln_test.test_log_dir) / 'log_ruc_test.csv'
     else:
-        test_log_file=Path(TEST_LOG_DIR) / 'log_ruc_test-microsoft.csv'
+        test_log_file=Path(ruc_vuln_test.test_log_dir) / 'log_ruc_test-microsoft.csv'
     fw=open(test_log_file,'a')
     fw.write(f'{resolver}|{resolver_ip}|{ruc_variant}|{with_sig_str}|{is_dosed}|{query_failure_rate}\n')
     fw.close()
