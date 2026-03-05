@@ -40,7 +40,7 @@ All the Dockerfiles in this artifact are built on **Ubuntu 22.04** with the Dock
 apt install -y docker.io
 ```
 
-The scripts for testing RUC vulnerabilities are executed in Python environment, e.g., **Python 3.10.12**. All the required Python packages are listed in [requirement.txt](poc_scripts/requirement.txt), which can be installed using the `pip` command. 
+The scripts for testing RUC vulnerabilities are executed in standard Python environment, e.g., **Python 3.10.12**. All the required Python packages are listed in [requirement.txt](poc_scripts/requirement.txt), which can be installed using the `pip` command. 
 
 ## Citing this paper
 In case you would like to cite RUC, you may use the following BibTex entry:

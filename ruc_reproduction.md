@@ -48,6 +48,7 @@ bash test_ruc_edns0.sh
 
 For Microsoft DNS, you can execute the script `C:\Users\Administrator\Desktop\poc_scripts\test_microsoft.ps1` using PowerShell on the Windows Server VM. The script will test the vulnerabilities of Microsoft DNS resolver against all of the RUC attack variants. As the Microsoft DNS service has been installed locally, the resolver's IP address in this test is `127.0.0.1`.
 
+### Test results
 The test results will be logged in the file `poc_scripts/ruc_test_result/log_ruc_test.csv` (or `poc_scripts/ruc_test_result/log_ruc_test-microsoft.csv` for Microsoft DNS), with each line in the following format:
 ```text
 {resolver software}|{resolver IP}|{RUC variant}|{with RRSIG}|{vulnerable}|{query failure rate}
@@ -55,7 +56,10 @@ The test results will be logged in the file `poc_scripts/ruc_test_result/log_ruc
 
 The field `vulnerable` indicates the vulnerability of the resolver against the corresponding attack variant. All the test results should be consistent with Table 2 in Section 5.1 of our paper. You can also compare the test results with the expected outputs under [expected_test_result](`poc_scripts/expected_test_result`). 
 
-Note that the deviation in query failure rate (i.e., the last field of each line) might be due to the transient negative cache of the tested resolver, while the resolvers vulnerable to RUC should all have a failure rate of 100%.
+### Notes
+The deviation in query failure rate (i.e., the last field of each line) might be due to the transient negative cache of the tested resolver, while the resolvers vulnerable to RUC should all have a failure rate of 100%.
+
+In 2026, we have shifted the delegations of our apex domains from in-zone nameservers to out-of-zone nameservers (operated by Cloudflare). Nevertheless, we have noticed that for some resolvers (e.g., BIND), resolving the out-of-zone delegations may cause accidental response failure. Hence, we use the script [warm_cache.sh](poc_scripts/warm_cache.sh) to fill the nameserver IP addresses into the resolver cache in advance. Note that the cache warming is intended to eliminate the interference to the reproduction results, and is irrelavant to the existence of the RUC vulnerability.
 
 ## Test of each RUC variant (breaking down to a specified resolver)
 If you are interested in a specific resolver, you can use the following commands to specify the resolver and inspect its behavior under a certain attack variant in detail. All of the following commands are executed within the Docker container of the RUC attacker. Make sure that the testing environment demonstrated in [environment_setup.md](environment_setup.md) has been properly-configured. Note that resolver containers should be restarted to flush the cache when testing each RUC variant, in order to prevent interference between testings.
