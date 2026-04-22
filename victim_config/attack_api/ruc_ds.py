@@ -18,8 +18,7 @@ class RUCDS_Nameserver:
 
         self.timestamp=config_dict[self.target_apex]['TIMESTAMP']
         self.nsip=config_dict[self.target_apex]['NSIP']
-        self.good_ttl=config_dict[self.target_apex]['GOOD_TTL']
-        self.bad_ttl=config_dict[self.target_apex]['BAD_TTL']
+        self.ttl=config_dict[self.target_apex]['TTL']
         self.sig_inc_time=config_dict[self.target_apex]['SIGTIME']['SIG_INC']
         self.sig_exp_time=config_dict[self.target_apex]['SIGTIME']['SIG_EXP']
 
@@ -47,7 +46,7 @@ class RUCDS_Nameserver:
         try:
             domain=qname.lower()
             if domain.endswith(self.target):
-                rr_ds=RR(rname=self.target,rtype=43,ttl=self.bad_ttl,rdata=DS(self.sub_ds_tag,algorithm=self.sub_ds_alg,digest_type=self.sub_ds_hash,digest=binascii.unhexlify(self.sub_ds_digest)))
+                rr_ds=RR(rname=self.target,rtype=43,ttl=self.ttl,rdata=DS(self.sub_ds_tag,algorithm=self.sub_ds_alg,digest_type=self.sub_ds_hash,digest=binascii.unhexlify(self.sub_ds_digest)))
                 reply.add_answer(rr_ds)
                 if self.with_sig==1:
                     # mute the last bit of DS's RRSIG
@@ -55,7 +54,7 @@ class RUCDS_Nameserver:
                     mutable_data=bytearray(original_bytes)
                     mutable_data[-1]=(mutable_data[-1] & 0b11111110) | 0b00000001
                     modified_data=bytes(mutable_data)
-                    rrsig_ds=RR(rname=self.target,rtype=46,ttl=self.bad_ttl,rdata=RRSIG(covered=43,algorithm=self.alg_zsk_apex,labels=4,orig_ttl=self.bad_ttl,
+                    rrsig_ds=RR(rname=self.target,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=43,algorithm=self.alg_zsk_apex,labels=4,orig_ttl=self.ttl,
                                                                                         sig_exp=self.sig_exp_time,
                                                                                         sig_inc=self.sig_inc_time,
                                                                                         key_tag=self.tag_zsk_apex,

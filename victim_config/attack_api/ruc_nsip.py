@@ -16,8 +16,7 @@ class RUCNSIP_Nameserver:
         self.timestamp=config_dict[self.target_nsdom]['TIMESTAMP']
         self.nsip=config_dict[self.target_nsdom]['NSIP']
         self.nsip_bad=config_dict[self.target_nsdom]['NSIP_BAD']
-        self.bad_ttl=config_dict[self.target_nsdom]['BAD_TTL']
-        self.good_ttl=config_dict[self.target_nsdom]['GOOD_TTL']
+        self.ttl=config_dict[self.target_nsdom]['TTL']
         self.sig_inc_time=config_dict[self.target_nsdom]['SIGTIME']['SIG_INC']
         self.sig_exp_time=config_dict[self.target_nsdom]['SIGTIME']['SIG_EXP']
         self.rrsig_zsk_nsdom=config_dict[self.target_nsdom]['ZSK']['RRSIG']
@@ -39,19 +38,19 @@ class RUCNSIP_Nameserver:
         try:
             domain=qname.lower()
             if domain=='ns1.'+self.target_nsdom:
-                rr_a=RR(rname=qname,rtype=1,ttl=self.good_ttl,rdata=A(self.nsip))
+                rr_a=RR(rname=qname,rtype=1,ttl=self.ttl,rdata=A(self.nsip))
                 reply.add_answer(rr_a)
                 reply.header.rcode=getattr(RCODE,'NOERROR')
             
             elif domain=='ns.'+self.target_nsdom:
-                rr_a=RR(rname=qname,rtype=1,ttl=self.bad_ttl,rdata=A(self.nsip_bad))
+                rr_a=RR(rname=qname,rtype=1,ttl=self.ttl,rdata=A(self.nsip_bad))
                 reply.add_answer(rr_a)
                 reply.header.rcode=getattr(RCODE,'NOERROR')
             
             elif domain==self.target_nsdom:
-                zsk_rr=RR(rname=qname,rtype=48,ttl=self.good_ttl,rdata=DNSKEY(flags=256,protocol=3,algorithm=8,key=base64.b64decode(self.zsk_nsdom)))
-                ksk_rr=RR(rname=qname,rtype=48,ttl=self.good_ttl,rdata=DNSKEY(flags=257,protocol=3,algorithm=8,key=base64.b64decode(self.ksk_nsdom)))
-                rrsig_ksk=RR(rname=qname,rtype=46,ttl=self.good_ttl,rdata=RRSIG(covered=48,algorithm=self.alg_ksk_nsdom,labels=3,orig_ttl=self.good_ttl,
+                zsk_rr=RR(rname=qname,rtype=48,ttl=self.ttl,rdata=DNSKEY(flags=256,protocol=3,algorithm=8,key=base64.b64decode(self.zsk_nsdom)))
+                ksk_rr=RR(rname=qname,rtype=48,ttl=self.ttl,rdata=DNSKEY(flags=257,protocol=3,algorithm=8,key=base64.b64decode(self.ksk_nsdom)))
+                rrsig_ksk=RR(rname=qname,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=48,algorithm=self.alg_ksk_nsdom,labels=3,orig_ttl=self.ttl,
                                                                                 sig_exp=self.sig_exp_time,
                                                                                 sig_inc=self.sig_inc_time,
                                                                                 key_tag=self.tag_ksk_nsdom,
@@ -63,7 +62,7 @@ class RUCNSIP_Nameserver:
                 reply.header.rcode=getattr(RCODE,'NOERROR')
 
             elif domain==self.target:
-                rr_ns=RR(rname=qname,rtype=2,ttl=self.bad_ttl,rdata=NS('ns.'+self.target_nsdom))
+                rr_ns=RR(rname=qname,rtype=2,ttl=self.ttl,rdata=NS('ns.'+self.target_nsdom))
                 reply.add_answer(rr_ns)
                 reply.header.rcode=getattr(RCODE,'NOERROR')
                 

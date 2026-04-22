@@ -2,8 +2,7 @@
     "victim-rucdnskey.dnssec-ruc.xyz.": {
         "TIMESTAMP": "20260101",
         "NSIP": "172.22.2.1",
-        "GOOD_TTL": 10,
-        "BAD_TTL": 86400,
+        "TTL": 3600,
         "SIGTIME": {
             "SIG_INC": 1751184611,
             "SIG_EXP": 1753776611
@@ -24,8 +23,7 @@
     "victim-rucds.dnssec-ruc.xyz.": {
         "TIMESTAMP": "20260101",
         "NSIP": "172.22.2.1",
-        "GOOD_TTL": 10,
-        "BAD_TTL": 86400,
+        "TTL": 3600,
         "SIGTIME": {
             "SIG_INC": 1751184611,
             "SIG_EXP": 1753776611
@@ -54,8 +52,7 @@
         "TIMESTAMP": "20260101",
         "NSIP": "172.22.2.1",
         "NSIP_BAD": "172.22.2.2",
-        "GOOD_TTL": 10,
-        "BAD_TTL": 86400,
+        "TTL": 3600,
         "SIGTIME": {
             "SIG_INC": 1751184611,
             "SIG_EXP": 1753776611
@@ -76,8 +73,7 @@
     "victim-rucedns0.dnssec-ruc.xyz.": {
         "TIMESTAMP": "20260101",
         "NSIP": "172.22.2.1",
-        "GOOD_TTL": 10,
-        "BAD_TTL": 86400,
+        "TTL": 3600,
         "SIGTIME": {
             "SIG_INC": 1751184611,
             "SIG_EXP": 1753776611

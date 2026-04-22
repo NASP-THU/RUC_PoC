@@ -16,8 +16,7 @@ class RUCDNSKEY_Nameserver:
 
         self.timestamp=config_dict[self.target]['TIMESTAMP']
         self.nsip=config_dict[self.target]['NSIP']
-        self.good_ttl=config_dict[self.target]['GOOD_TTL']
-        self.bad_ttl=config_dict[self.target]['BAD_TTL']
+        self.ttl=config_dict[self.target]['TTL']
         self.sig_inc_time=config_dict[self.target]['SIGTIME']['SIG_INC']
         self.sig_exp_time=config_dict[self.target]['SIGTIME']['SIG_EXP']
         self.rrsig_zsk=config_dict[self.target]['ZSK']['RRSIG']
@@ -39,8 +38,8 @@ class RUCDNSKEY_Nameserver:
             domain=qname.lower()
             if domain==self.target:
                 if qtype==48:  # DNSKEY
-                    zsk_rr=RR(rname=qname,rtype=48,ttl=self.bad_ttl,rdata=DNSKEY(flags=256,protocol=3,algorithm=8,key=base64.b64decode(self.zsk)))
-                    ksk_rr=RR(rname=qname,rtype=48,ttl=self.bad_ttl,rdata=DNSKEY(flags=257,protocol=3,algorithm=8,key=base64.b64decode(self.ksk)))
+                    zsk_rr=RR(rname=qname,rtype=48,ttl=self.ttl,rdata=DNSKEY(flags=256,protocol=3,algorithm=8,key=base64.b64decode(self.zsk)))
+                    ksk_rr=RR(rname=qname,rtype=48,ttl=self.ttl,rdata=DNSKEY(flags=257,protocol=3,algorithm=8,key=base64.b64decode(self.ksk)))
                     reply.add_answer(zsk_rr)
                     reply.add_answer(ksk_rr)
                     if self.with_sig==1:
@@ -49,7 +48,7 @@ class RUCDNSKEY_Nameserver:
                         mutable_data=bytearray(original_bytes)
                         mutable_data[-1]=(mutable_data[-1] & 0b11111110) | 0b00000001
                         modified_data=bytes(mutable_data)
-                        rrsig_ksk=RR(rname=qname,rtype=46,ttl=self.bad_ttl,rdata=RRSIG(covered=48,algorithm=self.alg_ksk,labels=3,orig_ttl=self.bad_ttl,
+                        rrsig_ksk=RR(rname=qname,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=48,algorithm=self.alg_ksk,labels=3,orig_ttl=self.ttl,
                                                                                     sig_exp=self.sig_exp_time,
                                                                                     sig_inc=self.sig_inc_time,
                                                                                     key_tag=self.tag_ksk,

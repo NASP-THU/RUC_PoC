@@ -7,12 +7,7 @@ from datetime import datetime
 
 with open('config.json') as f:
     config_dict=json.load(f)
-
-# !!! The original TTL of the victim domain !!!
-GOOD_TTL=config_dict['record_ttl']['good']
-
-# !!! The manipulated TTL for forged records (to extend the DoS duration of RUC) !!!
-BAD_TTL=config_dict['record_ttl']['bad']
+TTL=config_dict['record_ttl']
 
 def dnssec_signzone(domain):
     os.system(f'dnssec-signzone -K /etc/bind/dnssec_keys -o {domain} /etc/bind/db.{domain}')
@@ -224,8 +219,7 @@ def config_main(apex_zone):
         victim_rucdnskey+'.':{
             'TIMESTAMP':timestamp,
             'NSIP':nsip,
-            'GOOD_TTL':GOOD_TTL,
-            'BAD_TTL':BAD_TTL,
+            'TTL':TTL,
             'SIGTIME':{
                 'SIG_INC':sig_inc_time_rucdnskey,
                 'SIG_EXP':sig_exp_time_rucdnskey
@@ -246,8 +240,7 @@ def config_main(apex_zone):
         victim_rucds_apex+'.':{
             'TIMESTAMP':timestamp,
             'NSIP':nsip,
-            'GOOD_TTL':GOOD_TTL,
-            'BAD_TTL':BAD_TTL,
+            'TTL':TTL,
             'SIGTIME':{
                 'SIG_INC':sig_inc_time_rucds_apex,
                 'SIG_EXP':sig_exp_time_rucds_apex
@@ -276,8 +269,7 @@ def config_main(apex_zone):
             'TIMESTAMP':timestamp,
             'NSIP':nsip,
             'NSIP_BAD':nsip_bad,
-            'GOOD_TTL':GOOD_TTL,
-            'BAD_TTL':BAD_TTL,
+            'TTL':TTL,
             'SIGTIME':{
                 'SIG_INC':sig_inc_time_rucnsip_nsdom,
                 'SIG_EXP':sig_exp_time_rucnsip_nsdom
@@ -298,8 +290,7 @@ def config_main(apex_zone):
         victim_rucedns0+'.':{
             'TIMESTAMP':timestamp,
             'NSIP':nsip,
-            'GOOD_TTL':GOOD_TTL,
-            'BAD_TTL':BAD_TTL,
+            'TTL':TTL,
             'SIGTIME':{
                 'SIG_INC':sig_inc_time_rucedns0,
                 'SIG_EXP':sig_exp_time_rucedns0

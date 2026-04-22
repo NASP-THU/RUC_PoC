@@ -28,10 +28,7 @@
         "base_folder": "/root/attack_api",
         "nameserver_threads": 1000
     },
-    "record_ttl": {
-        "good": 10,
-        "bad": 86400
-    },
+    "record_ttl": 3600,
     "troubleshooting_query": {
         "cd": 1,
         "ad": 0,

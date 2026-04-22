@@ -1,5 +1,5 @@
 $ORIGIN test.dnssec-ruc.xyz.
-$TTL    10
+$TTL    3600
 @       SOA     ns.test.dnssec-ruc.xyz.      admin.dnssec-ruc.xyz. (
                 2025030601; serial
                 3600      ; refresh

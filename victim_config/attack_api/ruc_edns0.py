@@ -16,8 +16,7 @@ class RUCEDNS0_Nameserver:
 
         self.timestamp=config_dict[self.target]['TIMESTAMP']
         self.nsip=config_dict[self.target]['NSIP']
-        self.good_ttl=config_dict[self.target]['GOOD_TTL']
-        self.bad_ttl=config_dict[self.target]['BAD_TTL']
+        self.ttl=config_dict[self.target]['TTL']
         self.sig_inc_time=config_dict[self.target]['SIGTIME']['SIG_INC']
         self.sig_exp_time=config_dict[self.target]['SIGTIME']['SIG_EXP']
         self.rrsig_soa=config_dict[self.target]['RRSIG_SOA']
@@ -42,9 +41,9 @@ class RUCEDNS0_Nameserver:
             domain=qname.lower()
             if domain.endswith(self.target):
                 if qtype==48:
-                    zsk_rr=RR(rname=qname,rtype=48,ttl=self.good_ttl,rdata=DNSKEY(flags=256,protocol=3,algorithm=8,key=base64.b64decode(self.zsk)))
-                    ksk_rr=RR(rname=qname,rtype=48,ttl=self.good_ttl,rdata=DNSKEY(flags=257,protocol=3,algorithm=8,key=base64.b64decode(self.ksk)))
-                    rrsig_ksk=RR(rname=qname,rtype=46,ttl=self.good_ttl,rdata=RRSIG(covered=48,algorithm=self.alg_ksk,labels=3,orig_ttl=self.good_ttl,
+                    zsk_rr=RR(rname=qname,rtype=48,ttl=self.ttl,rdata=DNSKEY(flags=256,protocol=3,algorithm=8,key=base64.b64decode(self.zsk)))
+                    ksk_rr=RR(rname=qname,rtype=48,ttl=self.ttl,rdata=DNSKEY(flags=257,protocol=3,algorithm=8,key=base64.b64decode(self.ksk)))
+                    rrsig_ksk=RR(rname=qname,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=48,algorithm=self.alg_ksk,labels=3,orig_ttl=self.ttl,
                                                                                     sig_exp=self.sig_exp_time,
                                                                                     sig_inc=self.sig_inc_time,
                                                                                     key_tag=self.tag_ksk,
@@ -59,15 +58,15 @@ class RUCEDNS0_Nameserver:
                     reply.header.rcode=getattr(RCODE,'NOERROR')
 
                 else:
-                    rr_soa=RR(rname=self.target,rtype=6,ttl=self.good_ttl,rdata=SOA("ns.rucedns0."+self.apex_zone,"admin."+self.apex_zone,(int(self.timestamp+'01'),3600,1800,129600,600)))
-                    rrsig_soa=RR(rname=self.target,rtype=46,ttl=self.good_ttl,rdata=RRSIG(covered=6,algorithm=self.alg_zsk,labels=3,orig_ttl=self.good_ttl,
+                    rr_soa=RR(rname=self.target,rtype=6,ttl=self.ttl,rdata=SOA("ns.rucedns0."+self.apex_zone,"admin."+self.apex_zone,(int('2025030601'),3600,1800,1209600,600)))
+                    rrsig_soa=RR(rname=self.target,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=6,algorithm=self.alg_zsk,labels=3,orig_ttl=self.ttl,
                                                                                     sig_exp=self.sig_exp_time,
                                                                                     sig_inc=self.sig_inc_time,
                                                                                     key_tag=self.tag_zsk,
                                                                                     name=self.target,
                                                                                     sig=base64.b64decode(self.rrsig_soa)))
-                    rr_nsec=RR(rname=self.target,rtype=47,ttl=self.good_ttl,rdata=NSEC(label=self.target,rrlist=['A','NS','SOA','RRSIG','NSEC','DNSKEY']))
-                    rrsig_nsec=RR(rname=self.target,rtype=46,ttl=self.good_ttl,rdata=RRSIG(covered=47,algorithm=self.alg_zsk,labels=3,orig_ttl=self.good_ttl,
+                    rr_nsec=RR(rname=self.target,rtype=47,ttl=self.ttl,rdata=NSEC(label=self.target,rrlist=['A','NS','SOA','RRSIG','NSEC','DNSKEY']))
+                    rrsig_nsec=RR(rname=self.target,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=47,algorithm=self.alg_zsk,labels=3,orig_ttl=self.ttl,
                                                                                     sig_exp=self.sig_exp_time,
                                                                                     sig_inc=self.sig_inc_time,
                                                                                     key_tag=self.tag_zsk,
@@ -83,7 +82,7 @@ class RUCEDNS0_Nameserver:
                     # reply.add_ar(opt_record)
 
                     # To align with the "additional count" in the response header, add an arbitrary glue record
-                    rr_a=RR(rname='ns.'+self.target,rtype=1,ttl=self.good_ttl,rdata=A(self.nsip))
+                    rr_a=RR(rname='ns.'+self.target,rtype=1,ttl=self.ttl,rdata=A(self.nsip))
                     reply.add_ar(rr_a)
                     
                     reply.header.rcode=getattr(RCODE,'NXDOMAIN')

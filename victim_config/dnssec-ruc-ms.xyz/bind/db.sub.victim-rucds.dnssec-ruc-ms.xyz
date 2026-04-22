@@ -1,5 +1,5 @@
 $ORIGIN sub.victim-rucds.dnssec-ruc-ms.xyz.
-$TTL    10
+$TTL    3600
 @       SOA     ns.sub.victim-rucds.dnssec-ruc-ms.xyz. admin.dnssec-ruc-ms.xyz. (
                 2024103101; serial
                 3600      ; refresh
