@@ -49,7 +49,7 @@ class RUCDS_Nameserver:
                 rr_ds=RR(rname=self.target,rtype=43,ttl=self.ttl,rdata=DS(self.sub_ds_tag,algorithm=self.sub_ds_alg,digest_type=self.sub_ds_hash,digest=binascii.unhexlify(self.sub_ds_digest)))
                 reply.add_answer(rr_ds)
                 if self.with_sig==1:
-                    # mute the last bit of DS's RRSIG
+                    # mutate the last bit of DS's RRSIG
                     original_bytes=base64.b64decode(self.sub_ds_rrsig)
                     mutable_data=bytearray(original_bytes)
                     mutable_data[-1]=(mutable_data[-1] & 0b11111110) | 0b00000001

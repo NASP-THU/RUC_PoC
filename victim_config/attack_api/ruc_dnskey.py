@@ -43,7 +43,7 @@ class RUCDNSKEY_Nameserver:
                     reply.add_answer(zsk_rr)
                     reply.add_answer(ksk_rr)
                     if self.with_sig==1:
-                        # mute the last bit of DNSKEY's RRSIG
+                        # mutate the last bit of DNSKEY's RRSIG
                         original_bytes=base64.b64decode(self.rrsig_ksk)
                         mutable_data=bytearray(original_bytes)
                         mutable_data[-1]=(mutable_data[-1] & 0b11111110) | 0b00000001
