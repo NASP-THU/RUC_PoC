@@ -10,7 +10,7 @@ For more details, please refer to [our paper](https://www.usenix.org/conference/
 
 ## 🌟 Recent updates
 Please refer to the [main branch](https://github.com/NASP-THU/RUC_PoC) for the updated version of this artifact.
-- **[April 2026]** For some resolvers (e.g., PowerDNS), restarting the container fails to clean up the DNS cache, leading to unexpected interferences between RUC tests. A new script [renew_resolver.py](poc_scripts/renew_resolver.py) is added to remove the previous resolver container and create a new one for each single test.
+- **[April 2026]** For some resolvers (e.g., Knot Resolver), restarting the container fails to clean up the DNS cache, which could lead to unexpected interferences between RUC tests. To resolve this, a new script [renew_resolver.py](poc_scripts/renew_resolver.py) is added to remove the previous resolver container and create a new one for each single test.
 - **[April 2026]** Preserve the original record TTLs in the manipulated responses, so as to further restrict the capability of RUC attackers (code changes in [attack_api](victim_config/attack_api/)).
 - **[March 2026]** For the apex domains used in RUC experiments (`dnssec-ruc.xyz` and `dnssec-ruc-ms.xyz`), their authoritative nameservers have been shifted to Cloudflare. The NS and DNSKEY records in the [apex zonefile](victim_config/dnssec-ruc.xyz/db.dnssec-ruc.xyz) have been updated correspondingly. The scripts and workflow to reproduce RUC remain unchanged.
 - **[March 2026]** For Microsoft DNS resolver, RUC experiments now can be conducted within the local virtual machine network. Please refer to the [instructions](https://github.com/NASP-THU/RUC_PoC/blob/main/environment_setup.md#microsoft-dns-resolver) for details.
