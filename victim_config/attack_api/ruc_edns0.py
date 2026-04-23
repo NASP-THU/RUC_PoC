@@ -17,6 +17,7 @@ class RUCEDNS0_Nameserver:
         self.timestamp=config_dict[self.target]['TIMESTAMP']
         self.nsip=config_dict[self.target]['NSIP']
         self.ttl=config_dict[self.target]['TTL']
+        self.ttl_nx=600
         self.sig_inc_time=config_dict[self.target]['SIGTIME']['SIG_INC']
         self.sig_exp_time=config_dict[self.target]['SIGTIME']['SIG_EXP']
         self.rrsig_soa=config_dict[self.target]['RRSIG_SOA']
@@ -58,15 +59,15 @@ class RUCEDNS0_Nameserver:
                     reply.header.rcode=getattr(RCODE,'NOERROR')
 
                 else:
-                    rr_soa=RR(rname=self.target,rtype=6,ttl=self.ttl,rdata=SOA("ns.rucedns0."+self.apex_zone,"admin."+self.apex_zone,(int('2025030601'),3600,1800,1209600,600)))
-                    rrsig_soa=RR(rname=self.target,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=6,algorithm=self.alg_zsk,labels=3,orig_ttl=self.ttl,
+                    rr_soa=RR(rname=self.target,rtype=6,ttl=self.ttl_nx,rdata=SOA("ns.rucedns0."+self.apex_zone,"admin."+self.apex_zone,(2025030601,3600,1800,1209600,600)))
+                    rrsig_soa=RR(rname=self.target,rtype=46,ttl=self.ttl_nx,rdata=RRSIG(covered=6,algorithm=self.alg_zsk,labels=3,orig_ttl=self.ttl,
                                                                                     sig_exp=self.sig_exp_time,
                                                                                     sig_inc=self.sig_inc_time,
                                                                                     key_tag=self.tag_zsk,
                                                                                     name=self.target,
                                                                                     sig=base64.b64decode(self.rrsig_soa)))
-                    rr_nsec=RR(rname=self.target,rtype=47,ttl=self.ttl,rdata=NSEC(label=self.target,rrlist=['A','NS','SOA','RRSIG','NSEC','DNSKEY']))
-                    rrsig_nsec=RR(rname=self.target,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=47,algorithm=self.alg_zsk,labels=3,orig_ttl=self.ttl,
+                    rr_nsec=RR(rname=self.target,rtype=47,ttl=self.ttl_nx,rdata=NSEC(label=self.target,rrlist=['A','NS','SOA','RRSIG','NSEC','DNSKEY']))
+                    rrsig_nsec=RR(rname=self.target,rtype=46,ttl=self.ttl_nx,rdata=RRSIG(covered=47,algorithm=self.alg_zsk,labels=3,orig_ttl=self.ttl_nx,
                                                                                     sig_exp=self.sig_exp_time,
                                                                                     sig_inc=self.sig_inc_time,
                                                                                     key_tag=self.tag_zsk,
