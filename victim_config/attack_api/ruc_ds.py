@@ -52,7 +52,7 @@ class RUCDS_Nameserver:
                     # mutate the last bit of DS's RRSIG
                     original_bytes=base64.b64decode(self.sub_ds_rrsig)
                     mutable_data=bytearray(original_bytes)
-                    mutable_data[-1]=(mutable_data[-1] & 0b11111110) | 0b00000001
+                    mutable_data[-1]=mutable_data[-1] ^ 0b00000001
                     modified_data=bytes(mutable_data)
                     rrsig_ds=RR(rname=self.target,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=43,algorithm=self.alg_zsk_apex,labels=4,orig_ttl=self.ttl,
                                                                                         sig_exp=self.sig_exp_time,

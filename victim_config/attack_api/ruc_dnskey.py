@@ -46,7 +46,7 @@ class RUCDNSKEY_Nameserver:
                         # mutate the last bit of DNSKEY's RRSIG
                         original_bytes=base64.b64decode(self.rrsig_ksk)
                         mutable_data=bytearray(original_bytes)
-                        mutable_data[-1]=(mutable_data[-1] & 0b11111110) | 0b00000001
+                        mutable_data[-1]=mutable_data[-1] ^ 0b00000001
                         modified_data=bytes(mutable_data)
                         rrsig_ksk=RR(rname=qname,rtype=46,ttl=self.ttl,rdata=RRSIG(covered=48,algorithm=self.alg_ksk,labels=3,orig_ttl=self.ttl,
                                                                                     sig_exp=self.sig_exp_time,
